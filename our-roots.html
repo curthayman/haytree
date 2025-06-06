@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Roots – HayTree Web Services, LLC</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1a2a3a;
+      --green: #6db33f;
+      --lightgreen: #eafbe6;
+      --bg: #f8f9fb;
+      --white: #fff;
+      --branch: #8B5C2A;
+      --shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+    .side-vine-container {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 140px;
+      z-index: 100;
+      pointer-events: none;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .side-vine-svg {
+      width: 120px;
+      height: 100vh;
+      display: block;
+    }
+    .side-vine-path,
+    .side-vine-branch,
+    .side-vine-branch2,
+    .side-vine-branch3,
+    .side-vine-branch4 {
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      transition: stroke-dashoffset 0.2s;
+    }
+    .side-vine-leaf,
+    .side-vine-leaf2,
+    .side-vine-leaf3,
+    .side-vine-leaf4,
+    .side-vine-leaf5 {
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .side-vine-leaf.visible,
+    .side-vine-leaf2.visible,
+    .side-vine-leaf3.visible,
+    .side-vine-leaf4.visible,
+    .side-vine-leaf5.visible {
+      opacity: 1;
+    }
+    .side-tree-canopy {
+      opacity: 0;
+      transition: opacity 0.7s;
+    }
+    .side-tree-canopy.visible {
+      opacity: 1;
+    }
+    @media (max-width: 900px) {
+      .side-vine-container { display: none; }
+    }
+    header {
+      background: var(--white);
+      box-shadow: var(--shadow);
+      padding: 0.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+    .logo span {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 1px;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    nav a {
+      color: var(--navy);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.2s;
+      display: inline-block;
+      padding-bottom: 4px;
+    }
+    nav a:first-child {
+      margin-left: 0;
+    }
+    nav a:after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 6px;
+      background: var(--branch);
+      border-radius: 3px 3px 12px 12px;
+      margin: 6px auto 0 auto;
+      transition: width .3s cubic-bezier(.77,0,.18,1);
+      box-shadow: 0 2px 6px #8B5C2A33;
+    }
+    nav a:hover {
+      color: var(--green);
+    }
+    nav a:hover:after {
+      width: 36px;
+      animation: branchWiggle 0.5s;
+    }
+    @keyframes branchWiggle {
+      0% { transform: rotate(0deg);}
+      20% { transform: rotate(-5deg);}
+      40% { transform: rotate(4deg);}
+      60% { transform: rotate(-2deg);}
+      80% { transform: rotate(2deg);}
+      100% { transform: rotate(0deg);}
+    }
+    @media (max-width: 700px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+      }
+      nav a {
+        margin: 0.5rem 0 0 0;
+        width: 100%;
+      }
+    }
+    .hero {
+      width: 100%;
+      min-height: 220px;
+      background: linear-gradient(135deg, var(--lightgreen) 0%, #eaf6fb 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 48px 20px 32px 20px;
+    }
+    .hero-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 0;
+      letter-spacing: 1px;
+      z-index: 2;
+      position: relative;
+    }
+    .hero-logo {
+      width: 120px;
+      height: 120px;
+      background: var(--white);
+      border-radius: 50%;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      margin: 0 auto 18px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+    .hero-logo img {
+      max-width: 90%;
+      max-height: 90%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: auto;
+    }
+    .roots-content {
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      max-width: 700px;
+      margin: 40px auto 60px auto;
+      padding: 40px 32px 32px 32px;
+      position: relative;
+      z-index: 1;
+      font-size: 1.15rem;
+      color: var(--navy);
+    }
+    .roots-content h2, .roots-content h2 span {
+      color: var(--green);
+      font-size: 1.3rem;
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .roots-content p {
+      margin-bottom: 18px;
+    }
+    /* Animated vine in the corner */
+    .roots-vine-plant {
+      position: absolute;
+      top: -38px;
+      right: 28px;
+      z-index: 2;
+      pointer-events: none;
+      width: 54px;
+      height: 160px;
+    }
+    @media (max-width: 600px) {
+      .roots-content {
+        padding: 24px 10px 18px 10px;
+        font-size: 1rem;
+      }
+      .roots-vine-plant {
+        right: 6px;
+        top: -18px;
+        width: 32px;
+        height: 90px;
+      }
+    }
+    .roots-vine-path {
+      stroke-dasharray: 260;
+      stroke-dashoffset: 260;
+      animation: vineGrowDown 2.2s cubic-bezier(.77,0,.18,1) forwards;
+    }
+    @keyframes vineGrowDown {
+      to { stroke-dashoffset: 0; }
+    }
+    .roots-vine-leaf {
+      opacity: 0;
+      transform: scale(0.7);
+      animation: vineLeafFade 0.7s forwards;
+    }
+    .roots-vine-leaf.l1 { animation-delay: 1.1s; }
+   .roots-vine-leaf.l2 { animation-delay: 1.4s; }
+    .roots-vine-leaf.l3 { animation-delay: 1.7s; }
+    .roots-vine-leaf.l4 { animation-delay: 2.0s; }
+    .roots-vine-leaf.l5 { animation-delay: 2.3s; }
+    .roots-vine-leaf.l6 { animation-delay: 2.6s; }
+    @keyframes vineLeafFade {
+      to { opacity: 1; transform: scale(1);}
+    }
+    #backToTopBtn {
+      position: fixed;
+      right: 32px;
+      bottom: 32px;
+      width: 56px;
+      height: 56px;
+      border: none;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+      cursor: pointer;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s, opacity 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #backToTopBtn.show {
+      opacity: 0.92;
+      pointer-events: auto;
+    }
+    #backToTopBtn:hover {
+      background: #eafbe6;
+      transform: scale(1.08) translateY(-4px);
+      opacity: 1;
+    }
+    footer {
+      background: var(--navy);
+      color: var(--white);
+      text-align: center;
+      padding: 32px 10px 18px 10px;
+      margin-top: 0;
+    }
+    footer a {
+      color: var(--green);
+      text-decoration: none;
+      margin: 0 8px;
+      font-weight: 500;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    .logo-title-vine {
+  position: relative;
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 1px;
+  vertical-align: middle;
+}
+
+.logo-vine-svg {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 120px;
+  height: 28px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.logo-vine-path {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+}
+
+.logo-vine-leaf {
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.7s, transform 0.7s;
+}
+    .logo-title-vine {
+  position: relative;
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 1px;
+  vertical-align: middle;
+}
+
+.logo-vine-svg {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 120px;
+  height: 28px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.logo-vine-path {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+}
+
+.logo-vine-leaf {
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.7s, transform 0.7s;
+}
+.hero-leaves {
+  position: absolute;
+  left: 0; top: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-leaf {
+  position: absolute;
+  opacity: 0.55;
+  filter: blur(0.2px);
+  will-change: transform, opacity;
+  transition: opacity 0.5s;
+}
+
+.hero-leaf-1 {
+  left: 12vw; top: 38%;
+  width: 120px; height: 60px;
+  animation: leafFloat1 9s ease-in-out infinite alternate;
+}
+.hero-leaf-2 {
+  right: 16vw; top: 52%;
+  width: 90px; height: 44px;
+  animation: leafFloat2 11s ease-in-out infinite alternate;
+}
+.hero-leaf-3 {
+  left: 48vw; top: 60%;
+  width: 70px; height: 36px;
+  animation: leafFloat3 13s ease-in-out infinite alternate;
+}
+
+@keyframes leafFloat1 {
+  0% { transform: translateY(0) rotate(-8deg) scale(1);}
+  50% { transform: translateY(18px) rotate(-2deg) scale(1.08);}
+  100% { transform: translateY(-8px) rotate(-10deg) scale(1);}
+}
+@keyframes leafFloat2 {
+  0% { transform: translateY(0) rotate(12deg) scale(1);}
+  50% { transform: translateY(-16px) rotate(6deg) scale(1.12);}
+  100% { transform: translateY(10px) rotate(14deg) scale(1);}
+}
+@keyframes leafFloat3 {
+  0% { transform: translateY(0) rotate(-4deg) scale(1);}
+  50% { transform: translateY(12px) rotate(2deg) scale(1.09);}
+  100% { transform: translateY(-6px) rotate(-6deg) scale(1);}
+}
+
+@media (max-width: 700px) {
+  .hero-leaf-1 { left: 2vw; top: 38%; width: 70px; height: 36px;}
+  .hero-leaf-2 { right: 2vw; top: 52%; width: 50px; height: 24px;}
+  .hero-leaf-3 { left: 40vw; top: 60%; width: 36px; height: 18px;}
+}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+</head>
+<body>
+  <div class="side-vine-container">
+    <svg class="side-vine-svg" viewBox="0 0 120 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="side-vine-path" d="M60,1200 Q30,900 60,600 Q90,300 60,80 Q60,40 100,40" stroke="#6db33f" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <path class="side-vine-branch" d="M60,950 Q20,900 40,800" stroke="#8B5C2A" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <path class="side-vine-branch2" d="M60,700 Q110,650 80,600" stroke="#8B5C2A" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <path class="side-vine-branch3" d="M60,500 Q10,470 30,400" stroke="#8B5C2A" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <path class="side-vine-branch4" d="M60,350 Q120,320 90,250" stroke="#8B5C2A" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <ellipse class="side-vine-leaf" cx="40" cy="820" rx="14" ry="6" fill="#6db33f" transform="rotate(-18 40 820)"/>
+      <ellipse class="side-vine-leaf2" cx="90" cy="620" rx="10" ry="5" fill="#6db33f" transform="rotate(12 90 620)"/>
+      <ellipse class="side-vine-leaf3" cx="30" cy="410" rx="12" ry="5" fill="#6db33f" transform="rotate(-10 30 410)"/>
+      <ellipse class="side-vine-leaf4" cx="100" cy="260" rx="10" ry="4" fill="#6db33f" transform="rotate(20 100 260)"/>
+      <ellipse class="side-vine-leaf5" cx="80" cy="80" rx="8" ry="3" fill="#6db33f" transform="rotate(-8 80 80)"/>
+      <g class="side-tree-canopy" id="sideTreeCanopy">
+        <ellipse cx="100" cy="40" rx="38" ry="30" fill="#6db33f"/>
+        <ellipse cx="80" cy="20" rx="16" ry="12" fill="#1a2a3a" fill-opacity="0.18"/>
+        <ellipse cx="120" cy="20" rx="16" ry="12" fill="#1a2a3a" fill-opacity="0.18"/>
+        <ellipse cx="100" cy="10" rx="10" ry="8" fill="#6db33f"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-leaves">
+  <!-- Big leafy SVGs with natural shapes -->
+  <svg class="hero-leaf hero-leaf-1" viewBox="0 0 120 60" width="120" height="60">
+    <path d="M60 10 Q90 0 110 30 Q90 55 60 50 Q30 55 10 30 Q30 0 60 10Z"
+          fill="#6db33f"/>
+    <path d="M60 10 Q90 0 110 30 Q90 55 60 50 Q30 55 10 30 Q30 0 60 10Z"
+          fill="#1a2a3a" fill-opacity="0.08"/>
+    <path d="M60 10 Q65 30 60 50" stroke="#4e8c2a" stroke-width="2" fill="none"/>
+  </svg>
+  <svg class="hero-leaf hero-leaf-2" viewBox="0 0 90 44" width="90" height="44">
+    <path d="M45 8 Q80 0 85 22 Q80 44 45 36 Q10 44 5 22 Q10 0 45 8Z"
+          fill="#6db33f"/>
+    <path d="M45 8 Q80 0 85 22 Q80 44 45 36 Q10 44 5 22 Q10 0 45 8Z"
+          fill="#1a2a3a" fill-opacity="0.08"/>
+    <path d="M45 8 Q50 22 45 36" stroke="#4e8c2a" stroke-width="2" fill="none"/>
+  </svg>
+  <svg class="hero-leaf hero-leaf-3" viewBox="0 0 70 36" width="70" height="36">
+    <path d="M35 6 Q60 0 65 18 Q60 36 35 30 Q10 36 5 18 Q10 0 35 6Z"
+          fill="#6db33f"/>
+    <path d="M35 6 Q60 0 65 18 Q60 36 35 30 Q10 36 5 18 Q10 0 35 6Z"
+          fill="#1a2a3a" fill-opacity="0.08"/>
+    <path d="M35 6 Q40 18 35 30" stroke="#4e8c2a" stroke-width="2" fill="none"/>
+  </svg>
+</div>
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+  <img src="images/HayTree_Web_Services_LLC_Green.png" alt="Haytree Web Services, LLC Logo">
+  <span class="logo-title-vine">
+    HayTree Web Services, LLC
+    <span class="logo-vine-svg">
+      <!-- SVG vines and leaves will go here -->
+      <svg viewBox="0 0 180 40" width="120" height="28" fill="none">
+        <!-- Main vine -->
+        <path class="logo-vine-path" d="M10,5 Q30,30 90,10 Q120,0 170,30" stroke="#6db33f" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Leaves -->
+        <ellipse class="logo-vine-leaf l1" cx="28" cy="22" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 28 22)"/>
+        <ellipse class="logo-vine-leaf l2" cx="60" cy="13" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 60 13)"/>
+        <ellipse class="logo-vine-leaf l3" cx="110" cy="7" rx="7" ry="3" fill="#6db33f" transform="rotate(-10 110 7)"/>
+        <ellipse class="logo-vine-leaf l4" cx="150" cy="25" rx="6" ry="2.5" fill="#6db33f" transform="rotate(18 150 25)"/>
+      </svg>
+    </span>
+  </span>
+</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="our-roots.html" style="color:var(--green);font-weight:700;">Our Roots</a>
+        <a href="branches.html">Branches</a>
+        <a href="process.html">How We Grow</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="hero-logo">
+      <img src="images/HayTree_Web_Services_LLC_Green.png" alt="Haytree Web Services, LLC Logo">
+    </div>
+    <div class="hero-title">Our Roots</div>
+  </section>
+  <main>
+    <div class="roots-content">
+      <div class="roots-vine-plant">
+        <svg viewBox="0 0 54 160" width="54" height="160" fill="none">
+          <path class="roots-vine-path" d="M27,0 Q40,40 18,60 Q36,90 30,120 Q40,140 27,160" stroke="#6db33f" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <ellipse class="roots-vine-leaf l1" cx="32" cy="28" rx="8" ry="3.5" fill="#6db33f" transform="rotate(-18 32 28)"/>
+          <ellipse class="roots-vine-leaf l2" cx="20" cy="60" rx="7" ry="3" fill="#6db33f" transform="rotate(12 20 60)"/>
+          <ellipse class="roots-vine-leaf l3" cx="34" cy="100" rx="8" ry="3.5" fill="#6db33f" transform="rotate(-10 34 100)"/>
+          <ellipse class="roots-vine-leaf l4" cx="28" cy="130" rx="7" ry="3" fill="#6db33f" transform="rotate(18 28 130)"/>
+          <ellipse class="roots-vine-leaf l5" cx="38" cy="145" rx="6" ry="2.5" fill="#6db33f" transform="rotate(-8 38 145)"/>
+          <ellipse class="roots-vine-leaf l6" cx="22" cy="150" rx="7" ry="3" fill="#6db33f" transform="rotate(10 22 150)"/>
+        </svg>
+      </div>
+      <h2><span>Why “HayTree”?</span></h2>
+      <p>
+        Our name is a blend of tech, love, and family. When we first started living together, our cozy second-floor apartment was surrounded by trees—almost every window framed a leafy view. We used to joke, “C&amp;A, sitting in a tree,” and that tree became a quiet symbol of growth, connection, and building something meaningful together.
+      </p>
+      <p>
+        With a Brady Bunch of nine kids between us, we’re a true modern family with deep roots and wide branches—just like a strong family tree. HayTree represents who we are: grounded, growing, and here to help others build their corner of the web with care.
+      </p>
+    </div>
+  </main>
+  <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none">
+    <path d="M0,30 Q720,90 1440,30 L1440,60 L0,60Z" fill="#1a2a3a"/>
+  </svg>
+  <footer>
+    &copy; 2025 Haytree Web Services, LLC &mdash; <a href="mailto:info@haytreewebservices.com">info@haytreewebservices.com</a>
+  </footer>
+  <button id="backToTopBtn" aria-label="Back to top">
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+      <rect x="20" y="28" width="4" height="10" rx="2" fill="#8B5C2A"/>
+      <ellipse cx="22" cy="26" rx="12" ry="8" fill="#6db33f"/>
+      <ellipse cx="16" cy="24" rx="5" ry="3" fill="#1a2a3a" fill-opacity="0.18"/>
+      <ellipse cx="28" cy="24" rx="5" ry="3" fill="#1a2a3a" fill-opacity="0.18"/>
+      <path d="M22 18 L16 24 M22 18 L28 24" stroke="#1a2a3a" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>
+  </button>
+  <script>
+    (function() {
+      const vine = document.querySelector('.side-vine-path');
+      const branch1 = document.querySelector('.side-vine-branch');
+      const branch2 = document.querySelector('.side-vine-branch2');
+      const branch3 = document.querySelector('.side-vine-branch3');
+      const branch4 = document.querySelector('.side-vine-branch4');
+      const leaf1 = document.querySelector('.side-vine-leaf');
+      const leaf2 = document.querySelector('.side-vine-leaf2');
+      const leaf3 = document.querySelector('.side-vine-leaf3');
+      const leaf4 = document.querySelector('.side-vine-leaf4');
+      const leaf5 = document.querySelector('.side-vine-leaf5');
+      const canopy = document.getElementById('sideTreeCanopy');
+      if (!vine) return;
+
+      const vineLength = vine.getTotalLength();
+      vine.style.strokeDasharray = vineLength;
+      vine.style.strokeDashoffset = vineLength;
+
+      const branch1Length = branch1.getTotalLength();
+      branch1.style.strokeDasharray = branch1Length;
+      branch1.style.strokeDashoffset = branch1Length;
+
+      const branch2Length = branch2.getTotalLength();
+      branch2.style.strokeDasharray = branch2Length;
+      branch2.style.strokeDashoffset = branch2Length;
+
+      const branch3Length = branch3.getTotalLength();
+      branch3.style.strokeDasharray = branch3Length;
+      branch3.style.strokeDashoffset = branch3Length;
+
+      const branch4Length = branch4.getTotalLength();
+      branch4.style.strokeDasharray = branch4Length;
+      branch4.style.strokeDashoffset = branch4Length;
+
+      function animateVineOnScroll() {
+        const scrollTop = window.scrollY || window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = Math.min(scrollTop / (docHeight * 0.6), 1);
+        const offset = vineLength * (1 - progress);
+
+        anime({
+          targets: vine,
+          strokeDashoffset: offset,
+          duration: 400,
+          easing: 'linear'
+        });
+
+        anime({
+          targets: branch1,
+          strokeDashoffset: branch1Length * (1 - Math.max(0, (progress - 0.18) / 0.22)),
+          duration: 400,
+          easing: 'linear'
+        });
+        anime({
+          targets:branch2,
+          strokeDashoffset: branch2Length * (1 - Math.max(0, (progress - 0.32) / 0.18)),
+          duration: 400,
+          easing: 'linear'
+        });
+        anime({
+          targets: branch3,
+          strokeDashoffset: branch3Length * (1 - Math.max(0, (progress - 0.48) / 0.18)),
+          duration: 400,
+          easing: 'linear'
+        });
+        anime({
+          targets: branch4,
+          strokeDashoffset: branch4Length * (1 - Math.max(0, (progress - 0.62) / 0.18)),
+          duration: 400,
+          easing: 'linear'
+        });
+
+        if (progress > 0.22) leaf1.classList.add('visible'); else leaf1.classList.remove('visible');
+        if (progress > 0.38) leaf2.classList.add('visible'); else leaf2.classList.remove('visible');
+        if (progress > 0.54) leaf3.classList.add('visible'); else leaf3.classList.remove('visible');
+        if (progress > 0.70) leaf4.classList.add('visible'); else leaf4.classList.remove('visible');
+        if (progress > 0.90) leaf5.classList.add('visible'); else leaf5.classList.remove('visible');
+
+        if (progress >= 1) {
+          canopy.classList.add('visible');
+        } else {
+          canopy.classList.remove('visible');
+        }
+      }
+
+      window.addEventListener('scroll', animateVineOnScroll);
+      window.addEventListener('resize', animateVineOnScroll);
+      animateVineOnScroll();
+    })();
+
+    // Back to Top Button logic
+    (function() {
+      const btn = document.getElementById('backToTopBtn');
+      function toggleBtn() {
+        if (window.scrollY > 200) {
+          btn.classList.add('show');
+        } else {
+          btn.classList.remove('show');
+        }
+      }
+      window.addEventListener('scroll', toggleBtn);
+      window.addEventListener('resize', toggleBtn);
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      toggleBtn();
+    })();
+
+function animateLogoVineLoop() {
+  const vine = document.querySelector('.logo-vine-path');
+  const leaves = document.querySelectorAll('.logo-vine-leaf');
+  if (!vine) return;
+
+  // Reset vine and leaves
+  vine.style.transition = 'none';
+  vine.style.strokeDashoffset = 220;
+  leaves.forEach(leaf => {
+    leaf.style.transition = 'none';
+    leaf.style.opacity = 0;
+    leaf.style.transform = 'scale(0.7)';
+  });
+
+  // Force reflow
+  void vine.offsetWidth;
+
+  // Animate vine
+  vine.style.transition = 'stroke-dashoffset 1.7s cubic-bezier(.77,0,.18,1)';
+  vine.style.strokeDashoffset = 0;
+
+  // Animate leaves in sequence
+  leaves.forEach((leaf, i) => {
+    setTimeout(() => {
+      leaf.style.transition = 'opacity 0.7s, transform 0.7s';
+      leaf.style.opacity = 1;
+      leaf.style.transform = 'scale(1)';
+    }, 1000 + i * 200);
+  });
+
+  // Loop after total duration
+  setTimeout(animateLogoVineLoop, 2600 + leaves.length * 200);
+}
+
+// Start the animation loop after DOM is ready
+document.addEventListener('DOMContentLoaded', animateLogoVineLoop);
+
+function animateLogoVineLoop() {
+  const vine = document.querySelector('.logo-vine-path');
+  const leaves = document.querySelectorAll('.logo-vine-leaf');
+  if (!vine) return;
+
+  // Reset vine and leaves
+  vine.style.transition = 'none';
+  vine.style.strokeDashoffset = 220;
+  leaves.forEach(leaf => {
+    leaf.style.transition = 'none';
+    leaf.style.opacity = 0;
+    leaf.style.transform = 'scale(0.7)';
+  });
+
+  // Force reflow
+  void vine.offsetWidth;
+
+  // Animate vine
+  vine.style.transition = 'stroke-dashoffset 1.7s cubic-bezier(.77,0,.18,1)';
+  vine.style.strokeDashoffset = 0;
+
+  // Animate leaves in sequence
+  leaves.forEach((leaf, i) => {
+    setTimeout(() => {
+      leaf.style.transition = 'opacity 0.7s, transform 0.7s';
+      leaf.style.opacity = 1;
+      leaf.style.transform = 'scale(1)';
+    }, 1000 + i * 200);
+  });
+
+  // Loop after total duration
+  setTimeout(animateLogoVineLoop, 2600 + leaves.length * 200);
+}
+
+// Start the animation loop after DOM is ready
+document.addEventListener('DOMContentLoaded', animateLogoVineLoop);
+  </script>
+</body>
+</html>

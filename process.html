@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Process – HayTree Web Services, LLC</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1a2a3a;
+      --green: #6db33f;
+      --lightgreen: #eafbe6;
+      --bg: #f8f9fb;
+      --white: #fff;
+      --branch: #8B5C2A;
+      --shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--white);
+      box-shadow: var(--shadow);
+      padding: 0.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+    .logo-title-vine {
+      position: relative;
+      display: inline-block;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 1px;
+      vertical-align: middle;
+    }
+    .logo-vine-svg {
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 120px;
+      height: 28px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .logo-vine-path {
+      stroke-dasharray: 220;
+      stroke-dashoffset: 220;
+    }
+    .logo-vine-leaf {
+      opacity: 0;
+      transform: scale(0.7);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    nav a {
+      color: var(--navy);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.2s;
+      display: inline-block;
+      padding-bottom: 4px;
+    }
+    nav a:first-child {
+      margin-left: 0;
+    }
+    nav a:after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 6px;
+      background: var(--branch);
+      border-radius: 3px 3px 12px 12px;
+      margin: 6px auto 0 auto;
+      transition: width .3s cubic-bezier(.77,0,.18,1);
+      box-shadow: 0 2px 6px #8B5C2A33;
+    }
+    nav a:hover {
+      color: var(--green);
+    }
+    nav a:hover:after {
+      width: 36px;
+      animation: branchWiggle 0.5s;
+    }
+    @keyframes branchWiggle {
+      0% { transform: rotate(0deg);}
+      20% { transform: rotate(-5deg);}
+      40% { transform: rotate(4deg);}
+      60% { transform: rotate(-2deg);}
+      80% { transform: rotate(2deg);}
+      100% { transform: rotate(0deg);}
+    }
+    @media (max-width: 700px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+      }
+      nav a {
+        margin: 0.5rem 0 0 0;
+        width: 100%;
+      }
+    }
+    .hero {
+      width: 100%;
+      min-height: 220px;
+      background: linear-gradient(135deg, var(--lightgreen) 0%, #eaf6fb 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 48px 20px 32px 20px;
+    }
+    .hero-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 0;
+      letter-spacing: 1px;
+      z-index: 2;
+      position: relative;
+    }
+    .hero-logo {
+      width: 120px;
+      height: 120px;
+      background: var(--white);
+      border-radius: 50%;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      margin: 0 auto 18px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+    .hero-logo img {
+      max-width: 90%;
+      max-height: 90%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: auto;
+    }
+    .process-content {
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      max-width: 700px;
+      margin: 40px auto 60px auto;
+      padding: 40px 32px 32px 32px;
+      position: relative;
+      z-index: 1;
+      font-size: 1.15rem;
+      color: var(--navy);
+      min-height: 260px;
+    }
+    .process-content h2, .process-content h2 span {
+      color: var(--green);
+      font-size: 1.3rem;
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .process-content p {
+      margin-bottom: 18px;
+    }
+    /* Animated vine on the left side */
+    .process-vine-plant {
+      position: absolute;
+      top: 0;
+      left: -38px;
+      z-index: 2;
+      pointer-events: none;
+      width: 54px;
+      height: 220px;
+    }
+    @media (max-width: 600px) {
+      .process-content {
+        padding: 24px 10px 18px 10px;
+        font-size: 1rem;
+      }
+      .process-vine-plant {
+        left: -18px;
+        top: 0;
+        width: 32px;
+        height: 120px;
+      }
+    }
+    .process-vine-path {
+      stroke-dasharray: 260;
+      stroke-dashoffset: 260;
+      /* Animation handled by JS */
+    }
+    .process-vine-leaf {
+      opacity: 0;
+      transform: scale(0.7);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+    #backToTopBtn {
+      position: fixed;
+      right: 32px;
+      bottom: 32px;
+      width: 56px;
+      height: 56px;
+      border: none;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+      cursor: pointer;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s, opacity 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #backToTopBtn.show {
+      opacity: 0.92;
+      pointer-events: auto;
+    }
+    #backToTopBtn:hover {
+      background: #eafbe6;
+      transform: scale(1.08) translateY(-4px);
+      opacity: 1;
+    }
+    footer {
+      background: var(--navy);
+      color: var(--white);
+      text-align: center;
+      padding: 32px 10px 18px 10px;
+      margin-top: 0;
+    }
+    footer a {
+      color: var(--green);
+      text-decoration: none;
+      margin: 0 8px;
+      font-weight: 500;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    .hero-leaves {
+  position: absolute;
+  left: 0; top: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-leaf {
+  position: absolute;
+  opacity: 0.55;
+  filter: blur(0.2px);
+  will-change: transform, opacity;
+  transition: opacity 0.5s;
+}
+
+.hero-leaf-1 {
+  left: 12vw; top: 38%;
+  width: 120px; height: 60px;
+  animation: leafFloat1 9s ease-in-out infinite alternate;
+}
+.hero-leaf-2 {
+  right: 16vw; top: 52%;
+  width: 90px; height: 44px;
+  animation: leafFloat2 11s ease-in-out infinite alternate;
+}
+.hero-leaf-3 {
+  left: 48vw; top: 60%;
+  width: 70px; height: 36px;
+  animation: leafFloat3 13s ease-in-out infinite alternate;
+}
+
+@keyframes leafFloat1 {
+  0% { transform: translateY(0) rotate(-8deg) scale(1);}
+  50% { transform: translateY(18px) rotate(-2deg) scale(1.08);}
+  100% { transform: translateY(-8px) rotate(-10deg) scale(1);}
+}
+@keyframes leafFloat2 {
+  0% { transform: translateY(0) rotate(12deg) scale(1);}
+  50% { transform: translateY(-16px) rotate(6deg) scale(1.12);}
+  100% { transform: translateY(10px) rotate(14deg) scale(1);}
+}
+@keyframes leafFloat3 {
+  0% { transform: translateY(0) rotate(-4deg) scale(1);}
+  50% { transform: translateY(12px) rotate(2deg) scale(1.09);}
+  100% { transform: translateY(-6px) rotate(-6deg) scale(1);}
+}
+
+@media (max-width: 700px) {
+  .hero-leaf-1 { left: 2vw; top: 38%; width: 70px; height: 36px;}
+  .hero-leaf-2 { right: 2vw; top: 52%; width: 50px; height: 24px;}
+  .hero-leaf-3 { left: 40vw; top: 60%; width: 36px; height: 18px;}
+}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+</head>
+<body>
+<div class="hero-leaves">
+  <!-- Big leafy SVGs with natural shapes -->
+  <svg class="hero-leaf hero-leaf-1" viewBox="0 0 120 60" width="120" height="60">
+    <path d="M60 10 Q90 0 110 30 Q90 55 60 50 Q30 55 10 30 Q30 0 60 10Z"
+          fill="#6db33f"/>
+    <path d="M60 10 Q90 0 110 30 Q90 55 60 50 Q30 55 10 30 Q30 0 60 10Z"
+          fill="#1a2a3a" fill-opacity="0.08"/>
+    <path d="M60 10 Q65 30 60 50" stroke="#4e8c2a" stroke-width="2" fill="none"/>
+  </svg>
+  <svg class="hero-leaf hero-leaf-2" viewBox="0 0 90 44" width="90" height="44">
+    <path d="M45 8 Q80 0 85 22 Q80 44 45 36 Q10 44 5 22 Q10 0 45 8Z"
+          fill="#6db33f"/>
+    <path d="M45 8 Q80 0 85 22 Q80 44 45 36 Q10 44 5 22 Q10 0 45 8Z"
+          fill="#1a2a3a" fill-opacity="0.08"/>
+    <path d="M45 8 Q50 22 45 36" stroke="#4e8c2a" stroke-width="2" fill="none"/>
+  </svg>
+  <svg class="hero-leaf hero-leaf-3" viewBox="0 0 70 36" width="70" height="36">
+    <path d="M35 6 Q60 0 65 18 Q60 36 35 30 Q10 36 5 18 Q10 0 35 6Z"
+          fill="#6db33f"/>
+    <path d="M35 6 Q60 0 65 18 Q60 36 35 30 Q10 36 5 18 Q10 0 35 6Z"
+          fill="#1a2a3a" fill-opacity="0.08"/>
+    <path d="M35 6 Q40 18 35 30" stroke="#4e8c2a" stroke-width="2" fill="none"/>
+  </svg>
+</div>
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <img src="images/HayTree_Web_Services_LLC_Green.png" alt="Haytree Web Services, LLC Logo">
+        <span class="logo-title-vine">
+          HayTree Web Services, LLC
+          <span class="logo-vine-svg">
+            <svg viewBox="0 0 180 40" width="120" height="28" fill="none">
+              <path class="logo-vine-path" d="M10,5 Q30,30 90,10 Q120,0 170,30" stroke="#6db33f" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <ellipse class="logo-vine-leaf l1" cx="28" cy="22" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 28 22)"/>
+              <ellipse class="logo-vine-leaf l2" cx="60" cy="13" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 60 13)"/>
+              <ellipse class="logo-vine-leaf l3" cx="110" cy="7" rx="7" ry="3" fill="#6db33f" transform="rotate(-10 110 7)"/>
+              <ellipse class="logo-vine-leaf l4" cx="150" cy="25" rx="6" ry="2.5" fill="#6db33f" transform="rotate(18 150 25)"/>
+            </svg>
+          </span>
+        </span>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="our-roots.html">Our Roots</a>
+        <a href="branches.html">Branches</a>
+        <a href="process.html" style="color:var(--green);font-weight:700;">How We Grow</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="hero-logo">
+      <img src="images/HayTree_Web_Services_LLC_Green.png" alt="Haytree Web Services, LLC Logo">
+    </div>
+    <div class="hero-title">How We Grow</div>
+  </section>
+  <main>
+    <div class="process-content">
+      <div class="process-vine-plant">
+        <svg viewBox="0 0 54 220" width="54" height="220" fill="none">
+          <path class="process-vine-path" d="M27,0 Q40,40 18,80 Q36,130 30,180 Q40,200 27,220" stroke="#6db33f" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <ellipse class="process-vine-leaf l1" cx="32" cy="38" rx="8" ry="3.5" fill="#6db33f" transform="rotate(-18 32 38)"/>
+          <ellipse class="process-vine-leaf l2" cx="20" cy="80" rx="7" ry="3" fill="#6db33f" transform="rotate(12 20 80)"/>
+          <ellipse class="process-vine-leaf l3" cx="34" cy="130" rx="8" ry="3.5" fill="#6db33f" transform="rotate(-10 34 130)"/>
+          <ellipse class="process-vine-leaf l4" cx="28" cy="170" rx="7" ry="3" fill="#6db33f" transform="rotate(18 28 170)"/>
+          <ellipse class="process-vine-leaf l5" cx="38" cy="200" rx="6" ry="2.5" fill="#6db33f" transform="rotate(-8 38 200)"/>
+          <ellipse class="process-vine-leaf l6" cx="22" cy="210" rx="7" ry="3" fill="#6db33f" transform="rotate(10 22 210)"/>
+        </svg>
+      </div>
+      <h2><span>Our Process</span></h2>
+      <p>
+        Every project at HayTree Web Services starts with a free, no-pressure consultation. We want to get to know you, your business, and your goals. This first conversation helps us understand exactly what you need—whether it’s a brand new website, a redesign, ongoing maintenance, or a security assessment.
+      </p>
+      <p>
+        After our initial chat, we gather all the information and content we’ll need to bring your vision to life. We’ll guide you through each step, from design and development to launch and beyond. If you need a Pen Test or security review, we’ll walk you through that process as well, making sure you understand every recommendation.
+      </p>
+      <p>
+        Our goal is to make the process smooth, transparent, and collaborative. We keep you updated, answer your questions, and make sure you’re comfortable every step of the way. When you work with HayTree, you’re not just getting a service—you’re growing with a team that cares.
+      </p>
+    </div>
+  </main>
+  <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none">
+    <path d="M0,30 Q720,90 1440,30 L1440,60 L0,60Z" fill="#1a2a3a"/>
+  </svg>
+  <footer>
+    &copy; 2025 Haytree Web Services, LLC &mdash; <a href="mailto:info@haytreewebservices.com">info@haytreewebservices.com</a>
+  </footer>
+  <button id="backToTopBtn" aria-label="Back to top">
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+      <rect x="20" y="28" width="4" height="10" rx="2" fill="#8B5C2A"/>
+      <ellipse cx="22" cy="26" rx="12" ry="8" fill="#6db33f"/>
+      <ellipse cx="16" cy="24" rx="5" ry="3" fill="#1a2a3a" fill-opacity="0.18"/>
+      <ellipse cx="28" cy="24" rx="5" ry="3" fill="#1a2a3a" fill-opacity="0.18"/>
+      <path d="M22 18 L16 24 M22 18 L28 24" stroke="#1a2a3a" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>
+  </button>
+  <script>
+    // Logo vine animation loop
+    function animateLogoVineLoop() {
+      const vine = document.querySelector('.logo-vine-path');
+      const leaves = document.querySelectorAll('.logo-vine-leaf');
+      if (!vine) return;
+
+      vine.style.transition = 'none';
+      vine.style.strokeDashoffset = 220;
+      leaves.forEach(leaf => {
+        leaf.style.transition = 'none';
+        leaf.style.opacity = 0;
+        leaf.style.transform = 'scale(0.7)';
+      });
+      void vine.offsetWidth;
+      vine.style.transition = 'stroke-dashoffset 1.7s cubic-bezier(.77,0,.18,1)';
+      vine.style.strokeDashoffset = 0;
+      leaves.forEach((leaf, i) => {
+        setTimeout(() => {
+          leaf.style.transition = 'opacity 0.7s, transform 0.7s';
+          leaf.style.opacity = 1;
+          leaf.style.transform = 'scale(1)';
+        }, 1000 + i * 200);
+      });
+      setTimeout(animateLogoVineLoop, 2600 + leaves.length * 200);
+    }
+    document.addEventListener('DOMContentLoaded', animateLogoVineLoop);
+
+    // Process vine animation loop
+    function animateProcessVineLoop() {
+      const vine = document.querySelector('.process-vine-path');
+      const leaves = document.querySelectorAll('.process-vine-leaf');
+      if (!vine) return;
+
+      vine.style.transition = 'none';
+      vine.style.strokeDashoffset = 260;
+      leaves.forEach(leaf => {
+        leaf.style.transition = 'none';
+        leaf.style.opacity = 0;
+        leaf.style.transform = 'scale(0.7)';
+      });
+      void vine.offsetWidth;
+      vine.style.transition = 'stroke-dashoffset 2.2s cubic-bezier(.77,0,.18,1)';
+      vine.style.strokeDashoffset = 0;
+      leaves.forEach((leaf, i) => {
+        setTimeout(() => {
+          leaf.style.transition = 'opacity 0.7s, transform 0.7s';
+          leaf.style.opacity = 1;
+          leaf.style.transform = 'scale(1)';
+        }, 1200 + i * 250);
+      });
+      setTimeout(animateProcessVineLoop, 3000 + leaves.length * 250);
+    }
+    document.addEventListener('DOMContentLoaded', animateProcessVineLoop);
+
+    // Back to Top Button logic
+    (function() {
+      const btn = document.getElementById('backToTopBtn');
+      function toggleBtn() {
+        if (window.scrollY > 200) {
+          btn.classList.add('show');
+        } else {
+          btn.classList.remove('show');
+        }
+      }
+      window.addEventListener('scroll', toggleBtn);
+      window.addEventListener('resize', toggleBtn);
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      toggleBtn();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HayTree Web Services, LLC</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1a2a3a;
+      --green: #6db33f;
+      --lightgreen: #eafbe6;
+      --bg: #f8f9fb;
+      --white: #fff;
+      --branch: #8B5C2A;
+      --about-bg: #eaf6fb;
+      --testimonials-bg: #f3fbe9;
+      --shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+    /* Side vine */
+    .side-vine-container {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 140px;
+      z-index: 100;
+      pointer-events: none;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .side-vine-svg {
+      width: 120px;
+      height: 100vh;
+      display: block;
+    }
+    .side-vine-path,
+    .side-vine-branch,
+    .side-vine-branch2,
+    .side-vine-branch3,
+    .side-vine-branch4 {
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      transition: stroke-dashoffset 0.2s;
+    }
+    .side-vine-leaf,
+    .side-vine-leaf2,
+    .side-vine-leaf3,
+    .side-vine-leaf4,
+    .side-vine-leaf5 {
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .side-vine-leaf.visible,
+    .side-vine-leaf2.visible,
+    .side-vine-leaf3.visible,
+    .side-vine-leaf4.visible,
+    .side-vine-leaf5.visible {
+      opacity: 1;
+    }
+    .side-tree-canopy {
+      opacity: 0;
+      transition: opacity 0.7s;
+    }
+    .side-tree-canopy.visible {
+      opacity: 1;
+    }
+    @media (max-width: 900px) {
+      .side-vine-container { display: none; }
+    }
+    header {
+      background: var(--white);
+      box-shadow: var(--shadow);
+      padding: 0.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+    .logo span {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 1px;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    nav a {
+      color: var(--navy);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.2s;
+      display: inline-block;
+      padding-bottom: 4px;
+    }
+    nav a:first-child {
+      margin-left: 0;
+    }
+    nav a:after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 6px;
+      background: var(--branch);
+      border-radius: 3px 3px 12px 12px;
+      margin: 6px auto 0 auto;
+      transition: width .3s cubic-bezier(.77,0,.18,1);
+      box-shadow: 0 2px 6px #8B5C2A33;
+    }
+    nav a:hover {
+      color: var(--green);
+    }
+    nav a:hover:after {
+      width: 36px;
+      animation: branchWiggle 0.5s;
+    }
+    @keyframes branchWiggle {
+      0% { transform: rotate(0deg);}
+      20% { transform: rotate(-5deg);}
+      40% { transform: rotate(4deg);}
+      60% { transform: rotate(-2deg);}
+      80% { transform: rotate(2deg);}
+      100% { transform: rotate(0deg);}
+    }
+    @media (max-width: 700px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+      }
+      nav a {
+        margin: 0.5rem 0 0 0;
+        width: 100%;
+      }
+    }
+    /* HERO */
+    .hero {
+      width: 100%;
+      min-height: 90vh;
+      background: linear-gradient(135deg, var(--lightgreen) 0%, #eaf6fb 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 60px 20px 40px 20px;
+    }
+    /* Large animated vines and leaves in hero */
+    .vine-hero {
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.18;
+    }
+    .vine-hero svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .vine-path-hero,
+    .vine-path-hero2,
+    .vine-path-hero3,
+    .vine-path-hero4,
+    .vine-path-hero5 {
+      stroke-dasharray: 1800;
+      stroke-dashoffset: 1800;
+      animation: vineGrowHero 4s ease-in-out infinite alternate;
+    }
+    .vine-path-hero2 { animation-delay: 0.7s; }
+    .vine-path-hero3 { animation-delay: 1.2s; }
+    .vine-path-hero4 { animation-delay: 1.7s; }
+    .vine-path-hero5 { animation-delay: 2.1s; }
+    @keyframes vineGrowHero {
+      to { stroke-dashoffset: 0; }
+    }
+    /* --- NEW: Hero Logo Glow --- */
+    .hero-logo {
+      width: 320px;
+      height: 320px;
+      background: var(--white);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 #6db33f, 0 2px 16px rgba(0,0,0,0.08);
+      margin: 0 auto 24px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      animation: logoGlow 3s ease-in-out infinite alternate;
+    }
+    @keyframes logoGlow {
+      0% { box-shadow: 0 0 0 0 #6db33f33, 0 2px 16px rgba(0,0,0,0.08);}
+      100% { box-shadow: 0 0 32px 8px #6db33f66, 0 2px 16px rgba(0,0,0,0.08);}
+    }
+    .hero-logo img {
+      max-width: 90%;
+      max-height: 90%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: auto;
+    }
+    /* --- NEW: Hero Badge --- */
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(90deg, #eafbe6, #eaf6fb);
+      color: var(--green);
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 16px;
+      padding: 8px 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px #6db33f11;
+      letter-spacing: 1px;
+      z-index: 2;
+      position: relative;
+    }
+    .hero-title {
+      font-size: 2.7rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+      z-index: 2;
+      position: relative;
+    }
+    .hero-desc {
+      font-size: 1.25rem;
+      color: #3a4a5a;
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      z-index: 2;
+      position: relative;
+    }
+    .cta-btn{
+      background: linear-gradient(90deg, var(--green), var(--navy));
+      color: var(--white);
+      border: none;
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(109,179,63,0.08);
+      transition: background 0.2s, transform 0.2s;
+      z-index: 2;
+      position: relative;
+    }
+    .cta-btn:hover {
+      background: linear-gradient(90deg, #5ca82d, #1a2a3a);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .tech-leaf {
+      position: absolute;
+      opacity: 0.18;
+      animation: floatLeaf 8s infinite alternate;
+      z-index: 1;
+    }
+    .tech-leaf1 { left: 10%; top: 18%; width: 48px; animation-delay: 0s;}
+    .tech-leaf2 { right: 12%; top: 22%; width: 38px; animation-delay: 2s;}
+    .tech-leaf3 { left: 20%; bottom: 10%; width: 36px; animation-delay: 1s;}
+    .tech-leaf4 { right: 18%; bottom: 12%; width: 44px; animation-delay: 3s;}
+    @keyframes floatLeaf {
+      0% { transform: translateY(0) rotate(0deg);}
+      100% { transform: translateY(-20px) rotate(8deg);}
+    }
+    /* --- NEW: Scroll Down Arrow --- */
+    .scroll-down-arrow {
+      position: absolute;
+      left: 50%;
+      bottom: 32px;
+      transform: translateX(-50%);
+      z-index: 2;
+      opacity: 0.7;
+      animation: arrowBounce 2s infinite;
+      pointer-events: none;
+    }
+    @keyframes arrowBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0);}
+      50% { transform: translateX(-50%) translateY(12px);}
+    }
+    /* --- NEW: Featured Clients Row --- */
+    .featured-clients {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin: 24px 0 17px 0;
+      opacity: 0.7;
+      font-size: 1rem;
+      z-index: 2;
+      position: relative;
+      flex-wrap: wrap;
+    }
+    .featured-clients span {
+      font-weight: 600;
+      color: var(--navy);
+      margin-right: 10px;
+      font-size: 1.05rem;
+    }
+    .featured-clients img {
+      height: 32px;
+      filter: grayscale(1) brightness(1.2);
+      opacity: 0.8;
+      background: #fff;
+      border-radius: 6px;
+      padding: 2px 8px;
+      box-shadow: 0 1px 4px #0001;
+    }
+    /* --- NEW: Sticky CTA Button --- */
+    .sticky-cta {
+      position: fixed;
+      right: 32px;
+      bottom: 100px;
+      background: linear-gradient(90deg, var(--green), var(--navy));
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 32px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 16px #6db33f33;
+      z-index: 3000;
+      transition: background 0.2s, transform 0.2s;
+      text-decoration: none;
+      opacity: 0.95;
+      display: block;
+    }
+    .sticky-cta:hover {
+      background: linear-gradient(90deg, #5ca82d, #1a2a3a);
+      transform: scale(1.05) translateY(-4px);
+    }
+    @media (max-width: 700px) {
+      .sticky-cta { right: 10px; bottom: 70px; padding: 10px 18px; font-size: 1rem;}
+    }
+    .vine-animated {
+      width: 100%;
+      overflow: visible;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .vine-top {
+      margin-bottom: -30px;
+      margin-top: 0;
+    }
+    .vine-bottom {
+      margin-top: -30px;
+      margin-bottom: 0;
+    }
+    .vine-animated svg {
+      width: 100%;
+      height: 80px;
+      display: block;
+    }
+    .vine-path {
+      stroke-dasharray: 900;
+      stroke-dashoffset: 900;
+      animation: vineGrow 3s ease-in-out infinite alternate;
+    }
+    .vine-bottom .vine-path {
+      animation-delay: 0.5s;
+    }
+    @keyframes vineGrow {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    .divider {
+      width: 100%;
+      height: 60px;
+      display: block;
+      background: none;
+      margin: 0;
+      padding: 0;
+    }
+    .about {
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 48px 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .about-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .about-desc {
+      font-size: 1.15rem;
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 0;
+    }
+    .services-section {
+      background: linear-gradient(120deg, #eafbe6 60%, #eaf6fb 100%);
+      padding: 60px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .services-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      padding: 36px 24px;
+      flex: 1 1 260px;
+      max-width: 320px;
+      min-width: 240px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card:hover {
+      transform: translateY(-10px) scale(1.04) rotate(-1deg);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.13);
+      border: 2px solid var(--green);
+      background: linear-gradient(120deg, #eafbe6 0%, #eaf6fb 100%);
+    }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 18px;
+      color: var(--green);
+      transition: color 0.3s;
+    }
+    .service-card:hover .service-icon {
+      color: var(--navy);
+    }
+    .service-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .service-card p {
+      color: #3a4a5a;
+      font-size: 1rem;
+    }
+    .process-section {
+      background:var(--white);
+      padding: 60px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .process-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .process-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .process-step {
+      background: #eafbe6;
+      border-radius: 16px;
+      padding: 28px 20px;
+      flex: 1 1 200px;
+      min-width: 180px;
+      max-width: 260px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(109,179,63,0.07);
+      position: relative;
+    }
+    .process-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -30px;
+      top: 50%;
+      width: 40px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green), var(--navy));
+      border-radius: 2px;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .process-step-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 12px;
+      color: var(--green);
+    }
+    .process-step-title {
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .testimonials-section {
+      background: linear-gradient(120deg, #eaf6fb 60%, #eafbe6 100%);
+      padding: 60px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonials-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .testimonials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      padding: 28px 22px;
+      flex: 1 1 260px;
+      max-width: 340px;
+      min-width: 220px;
+      text-align: left;
+      position: relative;
+      border-left: 6px solid var(--green);
+      transition: border-color 0.3s;
+    }
+    .testimonial-card:hover {
+      border-left: 6px solid var(--navy);
+    }
+    .testimonial-card:before {
+      content: "“";
+      font-size: 3rem;
+      color: var(--green);
+      position: absolute;
+      top: 10px;
+      left: 18px;
+      opacity: 0.2;
+    }
+    .testimonial-card p {
+      font-size: 1.05rem;
+      color: #3a4a5a;
+      margin-bottom: 18px;
+    }
+    .testimonial-author {
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+    .contact-section {
+      background: var(--white);
+      padding: 60px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .contact-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .contact-form {
+      background: #eafbe6;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(109,179,63,0.07);
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      border: 2px solid #d1e7d1;
+      transition: border-color 0.3s;
+    }
+    .contact-form:focus-within {
+      border-color: var(--green);
+    }
+    .contact-form label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--navy);
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding: 12px;
+      border-radius: 6px;
+      border: 1.5px solid #d1d5db;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--green);
+      outline: none;
+    }
+    .contact-form textarea {
+      min-height: 90px;
+    }
+    .contact-form button {
+      background: linear-gradient(90deg, var(--green), var(--navy));
+      color: var(--white);
+      border: none;
+      padding: 14px 0;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .contact-form button:hover {
+      background: linear-gradient(90deg, #5ca82d, #1a2a3a);
+    }
+    .form-success {
+      color: #2ecc40;
+      font-weight: 600;
+      margin-top: 10px;
+      text-align: center;
+    }
+    footer {
+      background: var(--navy);
+      color: var(--white);
+      text-align: center;
+      padding: 32px 10px 18px 10px;
+      margin-top: 60px;
+    }
+    footer a {
+      color: var(--green);
+      text-decoration: none;
+      margin: 0 8px;
+      font-weight: 500;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 900px) {
+      .services, .testimonials, .process-steps {
+        flex-direction: column;
+        align-items: center;
+      }
+      .about {
+        padding: 32px 10px;
+      }
+    }
+    @media (max-width: 600px) {
+      .hero-title, .about-title, .services-title, .process-title, .testimonials-title, .contact-title {
+        font-size: 1.3rem;
+      }
+      .hero-logo {
+        width: 120px; height: 120px;
+      }
+      .hero-logo img {
+        max-width: 100%; max-height: 100%;
+      }
+      .blob1, .blob2, .tech-leaf {
+        display: none;
+      }
+      .vine-animated, .vine-hero {
+        display: none;
+      }
+      .side-vine-container {
+        display: none;
+      }
+      .featured-clients {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 18px;
+      }
+    }
+@media (max-width: 600px) {
+  #backToTopBtn {
+    right: 12px;
+    bottom: 12px;
+    width: 44px;
+    height: 44px;
+  }
+}
+    #backToTopBtn {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+  cursor: pointer;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s, opacity 0.3s;
+  opacity: 0;
+  pointer-events: none;
+}
+#backToTopBtn.show {
+  opacity: 0.92;
+  pointer-events: auto;
+}
+#backToTopBtn:hover {
+  background: #eafbe6;
+  transform: scale(1.08) translateY(-4px);
+  opacity: 1;
+}
+@media (max-width: 600px) {
+  #backToTopBtn {
+    right: 12px;
+    bottom: 12px;
+    width: 44px;
+    height: 44px;
+  }
+}
+    .logo-title-vine {
+  position: relative;
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 1px;
+  vertical-align: middle;
+}
+
+.logo-vine-svg {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 120px;
+  height: 28px;
+  pointer-events: none;
+  z-index: 2;
+  /*Adjust for best fit */
+}
+
+.logo-vine-path {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: logoVineGrow 1.7s cubic-bezier(.77,0,.18,1) forwards;
+}
+
+@keyframes logoVineGrow {
+  to { stroke-dashoffset: 0; }
+}
+
+.logo-vine-leaf {
+  opacity: 0;
+  transform: scale(0.7);
+  animation: logoVineLeafFade 0.7s forwards;
+}
+.logo-vine-leaf.l1 { animation-delay: 1.0s; }
+.logo-vine-leaf.l2 { animation-delay: 1.2s; }
+.logo-vine-leaf.l3 { animation-delay: 1.4s; }
+.logo-vine-leaf.l4 { animation-delay: 1.6s; }
+
+@keyframes logoVineLeafFade {
+  to { opacity: 1; transform: scale(1);}
+}
+    .contact-plants {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+  z-index: 2;
+  height: 70px;
+  /* Adjust height as needed */
+}
+.plant {
+  position: relative;
+  margin: 0 10px;
+  opacity: 0.92;
+  filter: drop-shadow(0 4px 12px #6db33f22);
+}
+.plant-left {
+  align-self: flex-end;
+  width: 70px;
+  height: 50px;
+}
+.plant-center {
+  align-self: flex-end;
+  width: 110px;
+  height: 60px;
+  z-index: 2;
+}
+.plant-right {
+  align-self: flex-end;
+  width: 70px;
+  height: 50px;
+}
+.contact-section {
+  position: relative;
+  overflow: visible;
+}
+@media (max-width: 700px) {
+  .contact-plants {
+    height: 40px;
+  }
+  .plant-center { width: 70px; height: 40px;}
+  .plant-left, .plant-right { width: 40px; height: 30px;}
+}
+    .contact-leaves {
+  position: absolute;
+  left: 0; top: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.contact-leaf {
+  position: absolute;
+  opacity: 0.38;
+  filter: blur(0.2px);
+  will-change: transform, opacity;
+  transition: opacity 0.5s;
+}
+
+.contact-leaf-1 {
+  left: 6vw; top: 18%;
+  width: 120px; height: 60px;
+  animation: contactLeafFloat1 10s ease-in-out infinite alternate;
+}
+.contact-leaf-2 {
+  right: 10vw; top: 38%;
+  width: 90px; height: 44px;
+  animation: contactLeafFloat2 13s ease-in-out infinite alternate;
+}
+.contact-leaf-3 {
+  left: 50vw; top: 60%;
+  width: 70px; height: 36px;
+  animation: contactLeafFloat3 15s ease-in-out infinite alternate;
+}
+
+@keyframes contactLeafFloat1 {
+  0% { transform: translateY(0) rotate(-8deg) scale(1);}
+  50% { transform: translateY(18px) rotate(-2deg) scale(1.08);}
+  100% { transform: translateY(-8px) rotate(-10deg) scale(1);}
+}
+@keyframes contactLeafFloat2 {
+  0% { transform: translateY(0) rotate(12deg) scale(1);}
+  50% { transform: translateY(-16px) rotate(6deg) scale(1.12);}
+  100% { transform: translateY(10px) rotate(14deg) scale(1);}
+}
+@keyframes contactLeafFloat3 {
+  0% { transform: translateY(0) rotate(-4deg) scale(1);}
+  50% { transform: translateY(12px) rotate(2deg) scale(1.09);}
+  100% { transform: translateY(-6px) rotate(-6deg) scale(1);}
+}
+
+@media (max-width: 700px) {
+  .contact-leaf-1 { left: 0vw; top: 18%; width: 60px; height: 30px;}
+  .contact-leaf-2 { right: 0vw; top: 38%; width: 40px; height: 20px;}
+  .contact-leaf-3 { left: 40vw; top: 60%; width: 28px; height: 14px;}
+}
+.contact-section {
+  position: relative;
+  overflow: visible;
+}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+</head>
+<body>
+  <div class="side-vine-container">
+    <svg class="side-vine-svg" viewBox="0 0 120 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Main vine, curves to logo -->
+      <path class="side-vine-path" d="M60,1200 Q30,900 60,600 Q90,300 60,80 Q60,40 100,40" stroke="#6db33f" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <!-- Branches (left/right, organic) -->
+      <path class="side-vine-branch" d="M60,950 Q20,900 40,800" stroke="#8B5C2A" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <path class="side-vine-branch2" d="M60,700 Q110,650 80,600" stroke="#8B5C2A" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <path class="side-vine-branch3" d="M60,500 Q10,470 30,400" stroke="#8B5C2A" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <path class="side-vine-branch4" d="M60,350 Q120,320 90,250" stroke="#8B5C2A" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <!-- Leaves on main vine and branches -->
+      <ellipse class="side-vine-leaf" cx="40" cy="820" rx="14" ry="6" fill="#6db33f" transform="rotate(-18 40 820)"/>
+      <ellipse class="side-vine-leaf2" cx="90" cy="620" rx="10" ry="5" fill="#6db33f" transform="rotate(12 90 620)"/>
+      <ellipse class="side-vine-leaf3" cx="30" cy="410" rx="12" ry="5" fill="#6db33f" transform="rotate(-10 30 410)"/>
+      <ellipse class="side-vine-leaf4" cx="100" cy="260" rx="10" ry="4" fill="#6db33f" transform="rotate(20 100 260)"/>
+      <ellipse class="side-vine-leaf5" cx="80" cy="80" rx="8" ry="3" fill="#6db33f" transform="rotate(-8 80 80)"/>
+      <!-- Tree canopy at top -->
+      <g class="side-tree-canopy" id="sideTreeCanopy">
+        <ellipse cx="100" cy="40" rx="38" ry="30" fill="#6db33f"/>
+        <ellipse cx="80" cy="20" rx="16" ry="12" fill="#1a2a3a" fill-opacity="0.18"/>
+        <ellipse cx="120" cy="20" rx="16" ry="12" fill="#1a2a3a" fill-opacity="0.18"/>
+        <ellipse cx="100" cy="10" rx="10" ry="8" fill="#6db33f"/>
+      </g>
+    </svg>
+  </div>
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+  <img src="images/HayTree_Web_Services_LLC_Green.png" alt="Haytree Web Services, LLC Logo">
+  <span class="logo-title-vine">
+    HayTree Web Services, LLC
+    <span class="logo-vine-svg">
+      <!-- SVG vines and leaves will go here -->
+      <svg viewBox="0 0 180 40" width="120" height="28" fill="none">
+        <!-- Main vine -->
+        <path class="logo-vine-path" d="M10,5 Q30,30 90,10 Q120,0 170,30" stroke="#6db33f" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Leaves -->
+        <ellipse class="logo-vine-leaf l1" cx="28" cy="22" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 28 22)"/>
+        <ellipse class="logo-vine-leaf l2" cx="60" cy="13" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 60 13)"/>
+        <ellipse class="logo-vine-leaf l3" cx="110" cy="7" rx="7" ry="3" fill="#6db33f" transform="rotate(-10 110 7)"/>
+        <ellipse class="logo-vine-leaf l4" cx="150" cy="25" rx="6" ry="2.5" fill="#6db33f" transform="rotate(18 150 25)"/>
+      </svg>
+    </span>
+  </span>
+</div>
+      <nav>
+        <a href="our-roots.html">Our Roots</a>
+        <a href="branches.html">Branches</a>
+        <a href="process.html">How We Grow</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="vine-animated vine-hero">
+      <svg viewBox="0 0 900 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="vine-path-hero" d="M30,250 Q300,40 450,180 Q600,320 870,60" stroke="#6db33f" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <path class="vine-path-hero2" d="M100,280 Q350,100 600,200 Q800,100 850,250" stroke="#1a2a3a" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path class="vine-path-hero3" d="M200,260 Q400,60 700,180" stroke="#6db33f" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path class="vine-path-hero4" d="M50,100 Q200,200 400,100 Q600,0 850,150" stroke="#1a2a3a" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path class="vine-path-hero5" d="M870,60 Q700,200 500,80 Q300,200 100,40" stroke="#6db33f" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <ellipse cx="200" cy="80" rx="40" ry="16" fill="#6db33f" transform="rotate(-20 200 80)"/>
+        <ellipse cx="350" cy="120" rx="28" ry="10" fill="#1a2a3a" transform="rotate(10 350 120)"/>
+        <ellipse cx="600" cy="200" rx="36" ry="14" fill="#6db33f" transform="rotate(20 600 200)"/>
+        <ellipse cx="800" cy="100" rx="22" ry="8" fill="#1a2a3a" transform="rotate(-10 800 100)"/>
+        <ellipse cx="500" cy="220" rx="18" ry="7" fill="#6db33f" transform="rotate(30 500 220)"/>
+        <ellipse cx="700" cy="180" rx="30" ry="12" fill="#6db33f" transform="rotate(-15 700 180)"/>
+        <ellipse cx="870" cy="60" rx="16" ry="6" fill="#1a2a3a" transform="rotate(5 870 60)"/>
+        <ellipse cx="100" cy="280" rx="24" ry="9" fill="#6db33f" transform="rotate(-25 100 280)"/>
+        <ellipse cx="300" cy="200" rx="14" ry="5" fill="#1a2a3a" transform="rotate(15 300 200)"/>
+        <ellipse cx="400" cy="100" rx="20" ry="8" fill="#6db33f" transform="rotate(10 400 100)"/>
+        <ellipse cx="600" cy="40" rx="18" ry="7" fill="#1a2a3a" transform="rotate(-10 600 40)"/>
+        <ellipse cx="750" cy="220" rx="26" ry="10" fill="#6db33f" transform="rotate(20 750 220)"/>
+        <ellipse cx="150" cy="150" rx="18" ry="7" fill="#1a2a3a" transform="rotate(-5 150 150)"/>
+        <ellipse cx="850" cy="250" rx="20" ry="8" fill="#6db33f" transform="rotate(15 850 250)"/>
+      </svg>
+    </div>
+    <svg class="tech-leaf tech-leaf1" viewBox="0 0 48 48">
+      <path d="M24 44C24 44 44 34 44 16C44 8 36 4 24 4C12 4 4 8 4 16C4 34 24 44 24 44Z" fill="#6db33f"/>
+    </svg>
+    <svg class="tech-leaf tech-leaf2" viewBox="0 0 48 48">
+      <path d="M24 44C24 44 44 34 44 16C44 8 36 4 24 4C12 4 4 8 4 16C4 34 24 44 24 44Z" fill="#1a2a3a" fill-opacity="0.18"/>
+    </svg>
+    <svg class="tech-leaf tech-leaf3" viewBox="0 0 48 48">
+      <path d="M24 44C24 44 44 34 44 16C44 8 36 4 24 4C12 4 4 8 4 16C4 34 24 44 24 44Z" fill="#6db33f" fill-opacity="0.18"/>
+    </svg>
+    <svg class="tech-leaf tech-leaf4" viewBox="0 0 48 48">
+      <path d="M24 44C24 44 44 34 44 16C44 8 36 4 24 4C12 4 4 8 4 16C4 34 24 44 24 44Z" fill="#1a2a3a"/>
+    </svg>
+    <!-- Hero Badge -->
+    <div class="hero-badge">Delaware’s Trusted Web Partner</div>
+    <div class="hero-logo">
+      <img src="images/HayTree_Web_Services_LLC_Green.png" alt="Haytree Web Services, LLC Logo">
+    </div>
+    <div class="hero-title">All your website services in one place</div>
+    <div class="hero-desc">
+      Website Security, Website Design, Website Maintenance, Content Updates & Pen Testing
+    </div>
+    <a href="#contact"><button class="cta-btn">Let's Grow Together</button></a>
+    <!-- Scroll Down Arrow -->
+    <div class="scroll-down-arrow">
+      <svg width="36" height="36" viewBox="0 0 36 36">
+        <path d="M18 10v16M10 22l8 8 8-8" stroke="#6db33f" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <a href="#contact" class="sticky-cta">Let’s Grow Together</a>
+
+  <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 Q720,90 1440,30 L1440,60 L0,60Z" fill="#eafbe6"/></svg>
+
+  <div class="vine-animated vine-top">
+    <svg viewBox="0 0 600 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="vine-path" d="M10,70 Q150,10 300,60 Q450,110 590,20" stroke="#6db33f" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <ellipse cx="150" cy="20" rx="10" ry="4" fill="#6db33f" transform="rotate(-20 150 20)"/>
+      <ellipse cx="300" cy="60" rx="8" ry="3" fill="#1a2a3a" transform="rotate(10 300 60)"/>
+      <ellipse cx="450" cy="100" rx="10" ry="4" fill="#6db33f" transform="rotate(20 450 100)"/>
+    </svg>
+  </div>
+
+  <section id="about" class="about">
+    <div class="about-title">Our Roots</div>
+    <div class="about-desc">
+      At Haytree, we believe every business is like a tree: it needs strong roots, a healthy environment, and the right support to flourish. <br>
+      Our roots are in integrity, innovation, and a passion for helping others thrive in the digital world.
+    </div>
+  </section>
+
+  <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 Q720,-30 1440,30 L1440,60 L0,60Z" fill="#eaf6fb"/></svg>
+
+  <section id="services" class="services-section">
+    <div class="services-title">Our Branches</div>
+    <div class="services">
+      <div class="service-card">
+        <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="4" fill="#eafbe6" stroke="#6db33f"/>
+          <path d="M7 7h10v10H7z" fill="#6db33f" stroke="#1a2a3a"/>
+        </svg>
+        <h3>Website Design</h3>
+        <p>Beautiful, responsive websites that reflect your brand and values—like leaves unique to every tree.</p>
+      </div>
+      <div class="service-card">
+        <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="#eafbe6" stroke="#6db33f"/>
+          <path d="M12 6v6l4 2" stroke="#1a2a3a"/>
+        </svg>
+        <h3>Web Development</h3>
+        <p>Robust, scalable solutions—your digital trunk and branches, built to last and adapt as you grow.</p>
+      </div>
+      <div class="service-card">
+        <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4" fill="#eafbe6" stroke="#6db33f"/>
+        </svg>
+        <h3>Hosting & Maintenance</h3>
+        <p>We nurture your site with secure hosting, updates, and support—so your business stays evergreen.</p>
+      </div>
+    </div>
+  </section>
+
+  <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 Q720,90 1440,30 L1440,60 L0,60Z" fill="#fff"/></svg>
+
+  <section id="process" class="process-section">
+    <div class="process-title">How We Grow</div>
+    <div class="process-steps">
+      <div class="process-step">
+        <svg class="process-step-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="#6db33f" stroke="#1a2a3a"/>
+        </svg>
+        <div class="process-step-title">Plant the Seed</div>
+        <div>We listen to your vision and goals, laying the foundation for growth.</div>
+      </div>
+      <div class="process-step">
+        <svg class="process-step-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="4" y="4" width="16" height="16" rx="4" fill="#eafbe6" stroke="#6db33f"/>
+        </svg>
+        <div class="process-step-title">Nurture & Build</div>
+        <div>We design, develop, and refine your digital presence with care and expertise.</div>
+      </div>
+      <div class="process-step">
+        <svg class="process-step-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 2v20M2 12h20" stroke="#6db33f"/>
+        </svg>
+        <div class="process-step-title">Grow & Support</div>
+        <div>We launch, host, and support your site—helping your business reach new heights.</div>
+      </div>
+    </div>
+  </section>
+
+  <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 Q720,-30 1440,30 L1440,60 L0,60Z" fill="#eaf6fb"/></svg>
+
+  <section id="testimonials" class="testimonials-section">
+    <div class="testimonials-title">Voices in the Canopy</div><!-- Featured Clients Row -->
+    <div class="featured-clients">
+      <span>Trusted by:</span>
+      <img src="images/fdhill.png" alt="FD on the Hill">
+      <img src="images/sebpo.png" alt="SEBPO">
+      <img src="images/215logo.png" alt="215 Marketing">
+      <!-- Add or replace with your own client logos -->
+    </div>
+    <div class="testimonials">
+      <div class="testimonial-card">
+        <p>Haytree Web Services helped our business branch out online. The new site is beautiful and easy to use!</p>
+        <div class="testimonial-author">— Alex P., Small Business Owner</div>
+      </div>
+      <div class="testimonial-card">
+        <p>Professional, responsive, and truly invested in our growth. Highly recommended for any business looking to thrive.</p>
+        <div class="testimonial-author">— Jamie L., Entrepreneur</div>
+      </div>
+      <div class="testimonial-card">
+        <p>From seed to launch, the process was smooth and stress-free. The Haytree team really knows their roots!</p>
+        <div class="testimonial-author">— Morgan S., Startup Founder</div>
+      </div>
+    </div>
+  </section>
+
+  <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 Q720,90 1440,30 L1440,60 L0,60Z" fill="#eafbe6"/></svg>
+
+  <section id="contact" class="contact-section">
+    <div class="contact-title">Let’s Grow Together</div>
+    <!-- Floating leaves in the contact section -->
+<div class="contact-leaves">
+  <svg class="contact-leaf contact-leaf-1" viewBox="0 0 120 60" width="120" height="60">
+    <path d="M60 10 Q90 0 110 30 Q90 55 60 50 Q30 55 10 30 Q30 0 60 10Z" fill="#6db33f"/>
+    <path d="M60 10 Q90 0 110 30 Q90 55 60 50 Q30 55 10 30 Q30 0 60 10Z" fill="#1a2a3a" fill-opacity="0.08"/>
+  </svg>
+  <svg class="contact-leaf contact-leaf-2" viewBox="0 0 90 44" width="90" height="44">
+    <path d="M45 8 Q80 0 85 22 Q80 44 45 36 Q10 44 5 22 Q10 0 45 8Z" fill="#6db33f"/>
+    <path d="M45 8 Q80 0 85 22 Q80 44 45 36 Q10 44 5 22 Q10 0 45 8Z" fill="#1a2a3a" fill-opacity="0.08"/>
+  </svg>
+  <svg class="contact-leaf contact-leaf-3" viewBox="0 0 70 36" width="70" height="36">
+    <path d="M35 6 Q60 0 65 18 Q60 36 35 30 Q10 36 5 18 Q10 0 35 6Z" fill="#6db33f"/>
+    <path d="M35 6 Q60 0 65 18 Q60 36 35 30 Q10 36 5 18 Q10 0 35 6Z" fill="#1a2a3a" fill-opacity="0.08"/>
+  </svg>
+</div>
+    <form class="contact-form" id="contactForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required autocomplete="off">
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required autocomplete="off">
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit">Send Message</button>
+      <div class="form-success" id="formSuccess" style="display:none;">Thank you! We'll be in touch soon.</div>
+    </form>
+    <!-- Decorative plants at the bottom of the contact section -->
+<div class="contact-plants">
+  <!-- Left plant -->
+  <svg class="plant plant-left" viewBox="0 0 80 60" width="80" height="60">
+    <ellipse cx="40" cy="50" rx="30" ry="10" fill="#6db33f"/>
+    <path d="M40 50 Q30 30 20 40 Q10 50 40 50" fill="#4e8c2a"/>
+    <ellipse cx="20" cy="45" rx="8" ry="3" fill="#1a2a3a" fill-opacity="0.13"/>
+    <ellipse cx="60" cy="45" rx="8" ry="3" fill="#1a2a3a" fill-opacity="0.13"/>
+  </svg>
+  <!-- Center plant -->
+  <svg class="plant plant-center" viewBox="0 0 100 60" width="100" height="60">
+    <ellipse cx="50" cy="50" rx="38" ry="12" fill="#6db33f"/>
+    <path d="M50 50 Q60 20 80 40 Q90 50 50 50" fill="#4e8c2a"/>
+    <ellipse cx="35" cy="45" rx="10" ry="4" fill="#1a2a3a" fill-opacity="0.13"/>
+    <ellipse cx="65" cy="45" rx="10" ry="4" fill="#1a2a3a" fill-opacity="0.13"/>
+  </svg>
+  <!-- Right plant -->
+  <svg class="plant plant-right" viewBox="0 0 80 60" width="80" height="60">
+    <ellipse cx="40" cy="50" rx="30" ry="10" fill="#6db33f"/>
+    <path d="M40 50 Q50 30 60 40 Q70 50 40 50" fill="#4e8c2a"/>
+    <ellipse cx="20" cy="45" rx="8" ry="3" fill="#1a2a3a" fill-opacity="0.13"/>
+    <ellipse cx="60" cy="45" rx="8" ry="3" fill="#1a2a3a" fill-opacity="0.13"/>
+  </svg>
+</div>
+  </section>
+
+  <div class="vine-animated vine-bottom">
+    <svg viewBox="0 0 600 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="vine-path" d="M10,10 Q150,70 300,20 Q450,-30 590,60" stroke="#6db33f" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <ellipse cx="120" cy="60" rx="10" ry="4" fill="#6db33f" transform="rotate(-10 120 60)"/>
+      <ellipse cx="320" cy="20" rx="8" ry="3" fill="#1a2a3a" transform="rotate(10 320 20)"/>
+      <ellipse cx="500" cy="50" rx="10" ry="4" fill="#6db33f" transform="rotate(20 500 50)"/>
+    </svg>
+  </div>
+
+  <footer>
+    &copy; 2025 HayTree Web Services, LLC &mdash; <a href="mailto:info@haytreewebservices.com">info@haytreewebservices.com</a>
+  </footer>
+<!-- Back to Top Button -->
+<button id="backToTopBtn" aria-label="Back to top">
+  <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+    <!-- Tree trunk -->
+    <rect x="20" y="28" width="4" height="10" rx="2" fill="#8B5C2A"/>
+    <!-- Tree canopy -->
+    <ellipse cx="22" cy="26" rx="12" ry="8" fill="#6db33f"/>
+    <ellipse cx="16" cy="24" rx="5" ry="3" fill="#1a2a3a" fill-opacity="0.18"/>
+    <ellipse cx="28" cy="24" rx="5" ry="3" fill="#1a2a3a" fill-opacity="0.18"/>
+    <!-- Up arrow -->
+    <path d="M22 18 L16 24 M22 18 L28 24" stroke="#1a2a3a" stroke-width="2" stroke-linecap="round" fill="none"/>
+  </svg>
+</button>
+  <script>
+    // Side vine scroll animation with anime.js
+    (function() {
+      const vine = document.querySelector('.side-vine-path');
+      const branch1 = document.querySelector('.side-vine-branch');
+      const branch2 = document.querySelector('.side-vine-branch2');
+      const branch3 = document.querySelector('.side-vine-branch3');
+      const branch4 = document.querySelector('.side-vine-branch4');
+      const leaf1 = document.querySelector('.side-vine-leaf');
+      const leaf2 = document.querySelector('.side-vine-leaf2');
+      const leaf3 = document.querySelector('.side-vine-leaf3');
+      const leaf4 = document.querySelector('.side-vine-leaf4');
+      const leaf5 = document.querySelector('.side-vine-leaf5');
+      const canopy = document.getElementById('sideTreeCanopy');
+      if (!vine) return;
+
+      const vineLength = vine.getTotalLength();
+      vine.style.strokeDasharray = vineLength;
+      vine.style.strokeDashoffset = vineLength;
+
+      const branch1Length = branch1.getTotalLength();
+      branch1.style.strokeDasharray = branch1Length;
+      branch1.style.strokeDashoffset = branch1Length;
+
+      const branch2Length = branch2.getTotalLength();
+      branch2.style.strokeDasharray = branch2Length;
+      branch2.style.strokeDashoffset = branch2Length;
+
+      const branch3Length = branch3.getTotalLength();
+      branch3.style.strokeDasharray = branch3Length;
+      branch3.style.strokeDashoffset = branch3Length;
+
+      const branch4Length = branch4.getTotalLength();
+      branch4.style.strokeDasharray = branch4Length;
+      branch4.style.strokeDashoffset = branch4Length;
+
+      function animateVineOnScroll() {
+        const scrollTop = window.scrollY || window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = Math.min(scrollTop / (docHeight * 0.6), 1);
+        const offset = vineLength * (1 - progress);
+
+        anime({
+          targets: vine,
+          strokeDashoffset: offset,
+          duration: 400,
+          easing: 'linear'
+        });
+
+        // Branches grow at different scroll points
+        anime({
+          targets: branch1,
+          strokeDashoffset: branch1Length * (1 - Math.max(0, (progress - 0.18) / 0.22)), // 18%-40%
+          duration: 400,
+          easing: 'linear'
+        });
+        anime({
+          targets: branch2,
+          strokeDashoffset: branch2Length * (1 - Math.max(0, (progress - 0.32) / 0.18)), // 32%-50%
+          duration: 400,
+          easing: 'linear'
+        });
+        anime({
+          targets: branch3,
+          strokeDashoffset: branch3Length * (1 - Math.max(0, (progress - 0.48) / 0.18)), // 48%-66%
+          duration: 400,
+          easing: 'linear'
+        });
+        anime({
+          targets: branch4,
+          strokeDashoffset: branch4Length * (1 - Math.max(0, (progress - 0.62) / 0.18)), // 62%-80%
+          duration: 400,
+          easing: 'linear'
+        });
+
+        // Leaves fade in as their parent branch grows
+        if (progress > 0.22) leaf1.classList.add('visible'); else leaf1.classList.remove('visible');
+        if (progress > 0.38) leaf2.classList.add('visible'); else leaf2.classList.remove('visible');
+        if (progress > 0.54) leaf3.classList.add('visible'); else leaf3.classList.remove('visible');
+        if (progress > 0.70) leaf4.classList.add('visible'); else leaf4.classList.remove('visible');
+        if (progress > 0.90) leaf5.classList.add('visible'); else leaf5.classList.remove('visible');
+
+        // Show canopy when vine is fully grown
+        if (progress >= 1) {
+          canopy.classList.add('visible');
+        } else {
+          canopy.classList.remove('visible');
+        }
+      }
+
+      window.addEventListener('scroll', animateVineOnScroll);
+      window.addEventListener('resize', animateVineOnScroll);
+      animateVineOnScroll();
+    })();
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Contact form fake submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('formSuccess').style.display = 'block';
+      this.reset();
+      setTimeout(() => {
+        document.getElementById('formSuccess').style.display = 'none';
+      }, 4000);
+    });
+ // Back to Top Button logic
+(function() {
+  const btn = document.getElementById('backToTopBtn');
+  function toggleBtn() {
+    if (window.scrollY > 200) {
+      btn.classList.add('show');
+    } else {
+      btn.classList.remove('show');
+    }
+  }
+  window.addEventListener('scroll', toggleBtn);
+  window.addEventListener('resize', toggleBtn);
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  // Initialize on load
+  toggleBtn();
+})();
+  </script>
+</body>
+</html>
