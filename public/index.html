@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HayTree Web Services, LLC</title>
   <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
+
+  <!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://haytreewebservices.com/">
+<meta property="og:title" content="HayTree Web Services, LLC | Website Security, Website Design, Website Maintenance, Content Updates & Pen Testing">
+<meta property="og:description" content="Website Security, Website Design, Website Maintenance, Content Updates & Pen Testing">
+<meta property="og:image" content="https://haytreewebservices.com/images/HayTree_Web_Services_LLC_Green.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://haytreewebservices.com/">
+<meta property="twitter:title" content="HayTree Web Services, LLC | Website Security, Website Design, Website Maintenance, Content Updates & Pen Testing">
+<meta property="twitter:description" content="Website Security, Website Design, Website Maintenance, Content Updates & Pen Testing">
+<meta property="twitter:image" content="https://haytreewebservices.com/images/HayTree_Web_Services_LLC_Green.png">
   <style>
     :root {
       --navy: #1a2a3a;
@@ -153,21 +167,30 @@
       100% { transform: rotate(0deg);}
     }
     @media (max-width: 700px) {
-      .nav-container {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 0 1rem;
-      }
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-      }
-      nav a {
-        margin: 0.5rem 0 0 0;
-        width: 100%;
-      }
-    }
+  .nav-toggle {
+    display: flex;
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: var(--white);
+    height: 100vh;
+    width: 80vw;
+    max-width: 320px;
+    box-shadow: -2px 0 16px #0002;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px 32px 32px 32px;
+    gap: 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(.77,0,.18,1);
+    z-index: 9999; /* Make sure it's on top */
+  }
+  nav.open {
+    transform: translateX(0);
+  }
+}
     /* HERO */
     .hero {
       width: 100%;
@@ -924,6 +947,173 @@
   position: relative;
   overflow: visible;
 }
+    /* Hamburger styles */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 30;
+  margin-left: 8px;
+}
+.nav-toggle span {
+  display: block;
+  width: 28px;
+  height: 4px;
+  margin: 4px 0;
+  background: var(--navy);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* Show hamburger on mobile */
+@media (max-width: 700px) {
+  .nav-toggle {
+    display: flex;
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: var(--white);
+    height: 100vh;
+    width: 80vw;
+    max-width: 320px;
+    box-shadow: -2px 0 16px #0002;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px 32px 32px 32px;
+    gap: 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(.77,0,.18,1);
+    z-index: 30;
+  }
+  nav.open {
+    transform: translateX(0);
+  }
+}
+  /* Optional: darken background when menu is open */
+  body.menu-open::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: #0004;
+    z-index: 15;
+  }
+}
+
+/* Hamburger styles */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 31;
+      margin-left: 8px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 28px;
+      height: 4px;
+      margin: 4px 0;
+      background: var(--navy);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+    @media (max-width: 700px) {
+      .nav-toggle {
+        display: flex;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        background: var(--white);
+        height: 100vh;
+        width: 80vw;
+        max-width: 320px;
+        box-shadow: -2px 0 16px #0002;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 32px 32px 32px;
+        gap: 1.5rem;
+        transform: translateX(100%);
+        transition: transform 0.3s cubic-bezier(.77,0,.18,1);
+        z-index: 30;
+      }
+      nav.open {
+        transform: translateX(0);
+      }
+      .nav-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: #0004;
+        z-index: 20;
+        transition: opacity 0.3s;
+        opacity: 0;
+      }
+      .nav-overlay.open {
+        display: block;
+        opacity: 1;
+      }
+    }
+    .nav-toggle.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .nav-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-toggle.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+    /* Optional: darken background when menu is open */
+    body.menu-open {
+      overflow: hidden;
+    }
+    body.menu-open::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: #0004;
+      z-index: 15;
+      pointer-events: none;
+    }
+    nav {
+  z-index: 30 !important;
+}
+    .footer-social {
+  margin: 18px 0 0 0;
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+}
+.footer-icon {
+  width: 36px;
+  height: 36px;
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #6db33f11;
+  background: none;
+}
+.footer-social a:hover .footer-icon {
+  transform: scale(1.12) rotate(-3deg);
+  box-shadow: 0 4px 16px #6db33f33;
+  stroke: #1a2a3a;
+}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
@@ -952,26 +1142,28 @@
       </g>
     </svg>
   </div>
-  <header>
+ <header>
     <div class="nav-container">
       <div class="logo">
-  <img src="images/HayTree_Web_Services_LLC_Green.png" alt="Haytree Web Services, LLC Logo">
-  <span class="logo-title-vine">
-    HayTree Web Services, LLC
-    <span class="logo-vine-svg">
-      <!-- SVG vines and leaves will go here -->
-      <svg viewBox="0 0 180 40" width="120" height="28" fill="none">
-        <!-- Main vine -->
-        <path class="logo-vine-path" d="M10,5 Q30,30 90,10 Q120,0 170,30" stroke="#6db33f" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <!-- Leaves -->
-        <ellipse class="logo-vine-leaf l1" cx="28" cy="22" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 28 22)"/>
-        <ellipse class="logo-vine-leaf l2" cx="60" cy="13" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 60 13)"/>
-        <ellipse class="logo-vine-leaf l3" cx="110" cy="7" rx="7" ry="3" fill="#6db33f" transform="rotate(-10 110 7)"/>
-        <ellipse class="logo-vine-leaf l4" cx="150" cy="25" rx="6" ry="2.5" fill="#6db33f" transform="rotate(18 150 25)"/>
-      </svg>
-    </span>
-  </span>
-</div>
+        <img src="images/HayTree_Web_Services_LLC_Green.png" alt="HayTree Web Services, LLC Logo">
+        <span class="logo-title-vine">
+          HayTree Web Services, LLC
+          <span class="logo-vine-svg">
+            <svg viewBox="0 0 180 40" width="120" height="28" fill="none">
+              <path class="logo-vine-path" d="M10,5 Q30,30 90,10 Q120,0 170,30" stroke="#6db33f" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <ellipse class="logo-vine-leaf l1" cx="28" cy="22" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 28 22)"/>
+              <ellipse class="logo-vine-leaf l2" cx="60" cy="13" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 60 13)"/>
+              <ellipse class="logo-vine-leaf l3" cx="110" cy="7" rx="7" ry="3" fill="#6db33f" transform="rotate(-10 110 7)"/>
+              <ellipse class="logo-vine-leaf l4" cx="150" cy="25" rx="6" ry="2.5" fill="#6db33f" transform="rotate(18 150 25)"/>
+            </svg>
+          </span>
+        </span>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <nav>
         <a href="our-roots.html">Our Roots</a>
         <a href="branches.html">Branches</a>
@@ -1161,19 +1353,23 @@
     <path d="M35 6 Q60 0 65 18 Q60 36 35 30 Q10 36 5 18 Q10 0 35 6Z" fill="#1a2a3a" fill-opacity="0.08"/>
   </svg>
 </div>
-    <form class="contact-form" id="contactForm">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" required autocomplete="off">
+    <form class="contact-form" id="contactForm" action="https://formspree.io/f/mrbkeaky" method="POST">
+  <input type="hidden" name="_redirect" value="https://haytreewebservices.com/contact.html?thanks=1">
+  <label for="name">Name</label>
+  <input type="text" id="name" name="name" required autocomplete="off">
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required autocomplete="off">
+  <label for="email">Email</label>
+  <input type="email" id="email" name="email" required autocomplete="off">
 
-      <label for="message">Message</label>
-      <textarea id="message" name="message" required></textarea>
+  <label for="message">Message</label>
+  <textarea id="message" name="message" required></textarea>
 
-      <button type="submit">Send Message</button>
-      <div class="form-success" id="formSuccess" style="display:none;">Thank you! We'll be in touch soon.</div>
-    </form>
+  <input type="text" name="_gotcha" style="display:none">
+  <button type="submit">Send Message</button>
+</form>
+<div id="thankYouMessage" style="display:none; color: #2ecc40; font-weight: 600; text-align: center; margin-bottom: 20px;">
+  Thank you! We'll be in touch soon.
+</div>
     <!-- Decorative plants at the bottom of the contact section -->
 <div class="contact-plants">
   <!-- Left plant -->
@@ -1208,8 +1404,75 @@
       <ellipse cx="500" cy="50" rx="10" ry="4" fill="#6db33f" transform="rotate(20 500 50)"/>
     </svg>
   </div>
-
+<div class="footer-roots">
+  <svg viewBox="0 0 1200 120" width="100%" height="60" preserveAspectRatio="none">
+    <path
+      class="roots-path"
+      d="M0,60 Q100,100 200,60 Q300,20 400,60 Q500,100 600,60 Q700,20 800,60 Q900,100 1000,60 Q1100,20 1200,60"
+      fill="none"
+      stroke="#6db33f"
+      stroke-width="6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      class="roots-path"
+      d="M100,60 Q120,90 140,60"
+      fill="none"
+      stroke="#3a2c1a"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+    <path
+      class="roots-path"
+      d="M300,60 Q320,90 340,60"
+      fill="none"
+      stroke="#3a2c1a"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+    <path
+      class="roots-path"
+      d="M500,60 Q520,90 540,60"
+      fill="none"
+      stroke="#3a2c1a"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+    <path
+      class="roots-path"
+      d="M700,60 Q720,90 740,60"
+      fill="none"
+      stroke="#3a2c1a"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+    <path
+      class="roots-path"
+      d="M900,60 Q920,90 940,60"
+      fill="none"
+      stroke="#3a2c1a"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+  </svg>
+</div>
   <footer>
+    <div class="footer-social">
+ <a href="https://www.facebook.com/haytreeweb/" target="_blank" rel="noopener" aria-label="Facebook">
+  <svg class="footer-icon" viewBox="0 0 32 32" width="36" height="36" fill="none">
+    <circle cx="16" cy="16" r="15" fill="#eafbe6" stroke="#6db33f" stroke-width="2"/>
+    <path d="M20.5 16H18V24H15V16H13.5V13.5H15V12.25C15 10.73 15.73 9 18 9H20.5V11.5H19C18.45 11.5 18 11.95 18 12.5V13.5H20.5L20 16Z" fill="#1a2a3a"/>
+  </svg>
+</a>
+  <a href="https://www.instagram.com/haytreewebservicesllc" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="#6db33f" stroke-width="2">
+      <rect x="4" y="4" width="16" height="16" rx="5" fill="#eafbe6"/>
+      <circle cx="12" cy="12" r="4" stroke="#1a2a3a" stroke-width="2" fill="none"/>
+      <circle cx="17" cy="7" r="1.2" stroke="#1a2a3a" stroke-width="1.5" fill="#6db33f"/>
+    </svg>
+  </a>
+</div>
     &copy; 2025 HayTree Web Services, LLC &mdash; <a href="mailto:info@haytreewebservices.com">info@haytreewebservices.com</a>
   </footer>
 <!-- Back to Top Button -->
@@ -1319,27 +1582,6 @@
       window.addEventListener('resize', animateVineOnScroll);
       animateVineOnScroll();
     })();
-
-    // Smooth scroll for nav links
-    document.querySelectorAll('nav a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href.startsWith('#')) {
-          e.preventDefault();
-          document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-
-    // Contact form fake submission
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      document.getElementById('formSuccess').style.display = 'block';
-      this.reset();
-      setTimeout(() => {
-        document.getElementById('formSuccess').style.display = 'none';
-      }, 4000);
-    });
  // Back to Top Button logic
 (function() {
   const btn = document.getElementById('backToTopBtn');
@@ -1358,6 +1600,41 @@
   // Initialize on load
   toggleBtn();
 })();
+ // Hamburger menu logic (simple, robust, clear)
+ const navToggle = document.querySelector('.nav-toggle');
+const nav = document.querySelector('nav');
+
+function closeMenu() {
+  nav.classList.remove('open');
+  navToggle.classList.remove('open');
+  document.body.classList.remove('menu-open');
+}
+
+navToggle.addEventListener('click', function() {
+  const isOpen = nav.classList.toggle('open');
+  navToggle.classList.toggle('open');
+  document.body.classList.toggle('menu-open', isOpen);
+});
+
+// Only intercept anchor links for smooth scroll, otherwise let browser handle navigation
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+    }
+    closeMenu();
+  });
+});
+  // Show thank you message if redirected with ?thanks=1
+  if (window.location.search.includes('thanks=1')) {
+    document.getElementById('thankYouMessage').style.display = 'block';
+    // Optionally, hide the form after submission:
+    document.querySelector('.contact-form').style.display = 'none';
+    // Optionally, scroll to the message
+    document.getElementById('thankYouMessage').scrollIntoView({behavior: 'smooth'});
+  }
   </script>
 </body>
 </html>

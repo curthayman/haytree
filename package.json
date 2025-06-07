@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "animejs": "^4.0.2"
+  },
+  "scripts": {
+    "build": "echo 'No build step necessary'"
   }
 }
