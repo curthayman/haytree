@@ -167,18 +167,20 @@
     }
     /* HERO (smaller for interior) */
     .hero {
-      width: 100%;
-      min-height: 220px;
-      background: linear-gradient(135deg, var(--lightgreen) 0%, #eaf6fb 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      padding: 48px 20px 32px 20px;
-    }
+  width: 100vw;
+  min-height: 220px;
+  background: linear-gradient(135deg, var(--lightgreen) 0%, #eaf6fb 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 48px 0 32px 0;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
+}
     .hero-title {
       font-size: 2.2rem;
       font-weight: 800;
@@ -451,6 +453,17 @@
   box-shadow: 0 4px 16px #6db33f33;
   stroke: #1a2a3a;
 }
+    .animated-leaf {
+  display: block;
+  margin: 0 auto 8px auto;
+  animation: leaf-sway 2.5s ease-in-out infinite alternate;
+  transform-origin: 50% 90%;
+}
+@keyframes leaf-sway {
+  0% { transform: rotate(-6deg) scale(1); }
+  50% { transform: rotate(6deg) scale(1.05); }
+  100% { transform: rotate(-6deg) scale(1); }
+}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
@@ -568,6 +581,10 @@
       <path d="M12 12v2" stroke="#1a2a3a" stroke-width="2"/>
       <path d="M8 8V6a4 4 0 018 0v2" stroke="#1a2a3a" stroke-width="2"/>
     </svg>
+    <svg class="animated-leaf" viewBox="0 0 32 32" width="32" height="32" fill="none">
+  <path d="M16 30 Q28 18 16 2 Q4 18 16 30Z" fill="#6db33f" stroke="#3a2c1a" stroke-width="2"/>
+  <path d="M16 30 Q18 20 16 10 Q14 20 16 30Z" fill="none" stroke="#3a2c1a" stroke-width="1.5"/>
+</svg>
     <h3>WordPress Security</h3>
     <p>Protect your site and customers with security audits, malware removal, firewalls, and ongoing monitoring for peace of mind.</p>
   </div>
@@ -585,6 +602,10 @@
       <path d="M8 12l2 2 4-4" stroke="#1a2a3a" stroke-width="2"/>
       <path d="M12 2v2M12 20v2M2 12h2M20 12h2" stroke="#1a2a3a" stroke-width="1.5"/>
     </svg>
+    <svg class="animated-leaf" viewBox="0 0 32 32" width="32" height="32" fill="none">
+  <path d="M16 30 Q28 18 16 2 Q4 18 16 30Z" fill="#6db33f" stroke="#3a2c1a" stroke-width="2"/>
+  <path d="M16 30 Q18 20 16 10 Q14 20 16 30Z" fill="none" stroke="#3a2c1a" stroke-width="1.5"/>
+</svg>
     <h3>Pen Testing</h3>
     <p>Certified Ethical Hacker-led penetration testing for your website or network—find and fix vulnerabilities before attackers do.</p>
   </div>

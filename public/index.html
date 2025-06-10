@@ -192,19 +192,29 @@
   }
 }
     /* HERO */
-    .hero {
-      width: 100%;
-      min-height: 90vh;
-      background: linear-gradient(135deg, var(--lightgreen) 0%, #eaf6fb 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      padding: 60px 20px 40px 20px;
-    }
+  .hero {
+  width: 100vw;
+  min-height: 90vh;
+  background: linear-gradient(135deg, var(--lightgreen) 0%, #eaf6fb 100%);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 60px 0 40px 0;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-left: 160px; /* matches your vine width */
+  padding-right: 20px;
+  box-sizing: border-box;
+  /* Optionally, use flex to center content inside the available space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
     /* Large animated vines and leaves in hero */
     .vine-hero {
       position: absolute;
@@ -1114,33 +1124,59 @@
   box-shadow: 0 4px 16px #6db33f33;
   stroke: #1a2a3a;
 }
+    .animated-leaf {
+  display: block;
+  margin: 0 auto 8px auto;
+  animation: leaf-sway 2.5s ease-in-out infinite alternate;
+  transform-origin: 50% 90%;
+}
+@keyframes leaf-sway {
+  0% { transform: rotate(-6deg) scale(1); }
+  50% { transform: rotate(6deg) scale(1.05); }
+  100% { transform: rotate(-6deg) scale(1); }
+}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
 <body>
   <div class="side-vine-container">
     <svg class="side-vine-svg" viewBox="0 0 120 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Main vine, curves to logo -->
-      <path class="side-vine-path" d="M60,1200 Q30,900 60,600 Q90,300 60,80 Q60,40 100,40" stroke="#6db33f" stroke-width="8" stroke-linecap="round" fill="none"/>
-      <!-- Branches (left/right, organic) -->
-      <path class="side-vine-branch" d="M60,950 Q20,900 40,800" stroke="#8B5C2A" stroke-width="6" stroke-linecap="round" fill="none"/>
-      <path class="side-vine-branch2" d="M60,700 Q110,650 80,600" stroke="#8B5C2A" stroke-width="6" stroke-linecap="round" fill="none"/>
-      <path class="side-vine-branch3" d="M60,500 Q10,470 30,400" stroke="#8B5C2A" stroke-width="5" stroke-linecap="round" fill="none"/>
-      <path class="side-vine-branch4" d="M60,350 Q120,320 90,250" stroke="#8B5C2A" stroke-width="5" stroke-linecap="round" fill="none"/>
-      <!-- Leaves on main vine and branches -->
-      <ellipse class="side-vine-leaf" cx="40" cy="820" rx="14" ry="6" fill="#6db33f" transform="rotate(-18 40 820)"/>
-      <ellipse class="side-vine-leaf2" cx="90" cy="620" rx="10" ry="5" fill="#6db33f" transform="rotate(12 90 620)"/>
-      <ellipse class="side-vine-leaf3" cx="30" cy="410" rx="12" ry="5" fill="#6db33f" transform="rotate(-10 30 410)"/>
-      <ellipse class="side-vine-leaf4" cx="100" cy="260" rx="10" ry="4" fill="#6db33f" transform="rotate(20 100 260)"/>
-      <ellipse class="side-vine-leaf5" cx="80" cy="80" rx="8" ry="3" fill="#6db33f" transform="rotate(-8 80 80)"/>
-      <!-- Tree canopy at top -->
-      <g class="side-tree-canopy" id="sideTreeCanopy">
-        <ellipse cx="100" cy="40" rx="38" ry="30" fill="#6db33f"/>
-        <ellipse cx="80" cy="20" rx="16" ry="12" fill="#1a2a3a" fill-opacity="0.18"/>
-        <ellipse cx="120" cy="20" rx="16" ry="12" fill="#1a2a3a" fill-opacity="0.18"/>
-        <ellipse cx="100" cy="10" rx="10" ry="8" fill="#6db33f"/>
-      </g>
-    </svg>
+  <!-- Main vine, curves to logo -->
+  <path class="side-vine-path" d="M60,1200 Q30,900 60,600 Q90,300 60,80 Q60,40 100,40" stroke="#6db33f" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <!-- Branches (left/right, organic) -->
+  <path class="side-vine-branch" d="M60,950 Q20,900 40,800" stroke="#8B5C2A" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path class="side-vine-branch2" d="M60,700 Q110,650 80,600" stroke="#8B5C2A" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path class="side-vine-branch3" d="M60,500 Q10,470 30,400" stroke="#8B5C2A" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path class="side-vine-branch4" d="M60,350 Q120,320 90,250" stroke="#8B5C2A" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- Custom Leaves on main vine and branches -->
+  <g class="side-vine-leaf" transform="translate(40,820) rotate(-18)">
+    <path d="M0 14 Q12 2 0 -14 Q-12 2 0 14Z" fill="#6db33f" stroke="#3a2c1a" stroke-width="2"/>
+    <path d="M0 14 Q2 4 0 -6 Q-2 4 0 14Z" fill="none" stroke="#3a2c1a" stroke-width="1.5"/>
+  </g>
+  <g class="side-vine-leaf2" transform="translate(90,620) rotate(12)">
+    <path d="M0 10 Q8 1 0 -10 Q-8 1 0 10Z" fill="#6db33f" stroke="#3a2c1a" stroke-width="2"/>
+    <path d="M0 10 Q1.5 3 0 -5 Q-1.5 3 0 10Z" fill="none" stroke="#3a2c1a" stroke-width="1.5"/>
+  </g>
+  <g class="side-vine-leaf3" transform="translate(30,410) rotate(-10)">
+    <path d="M0 12 Q10 2 0 -12 Q-10 2 0 12Z" fill="#6db33f" stroke="#3a2c1a" stroke-width="2"/>
+    <path d="M0 12 Q2 4 0 -6 Q-2 4 0 12Z" fill="none" stroke="#3a2c1a" stroke-width="1.5"/>
+  </g>
+  <g class="side-vine-leaf4" transform="translate(100,260) rotate(20)">
+    <path d="M0 10 Q8 1 0 -10 Q-8 1 0 10Z" fill="#6db33f" stroke="#3a2c1a" stroke-width="2"/>
+    <path d="M0 10 Q1.5 3 0 -5 Q-1.5 3 0 10Z" fill="none" stroke="#3a2c1a" stroke-width="1.5"/>
+  </g>
+  <g class="side-vine-leaf5" transform="translate(80,80) rotate(-8)">
+    <path d="M0 8 Q6 1 0 -8 Q-6 1 0 8Z" fill="#6db33f" stroke="#3a2c1a" stroke-width="2"/>
+    <path d="M0 8 Q1 2 0 -4 Q-1 2 0 8Z" fill="none" stroke="#3a2c1a" stroke-width="1.5"/>
+  </g>
+  <!-- Tree canopy at top -->
+  <g class="side-tree-canopy" id="sideTreeCanopy">
+    <ellipse cx="100" cy="40" rx="38" ry="30" fill="#6db33f"/>
+    <ellipse cx="80" cy="20" rx="16" ry="12" fill="#1a2a3a" fill-opacity="0.18"/>
+    <ellipse cx="120" cy="20" rx="16" ry="12" fill="#1a2a3a" fill-opacity="0.18"/>
+    <ellipse cx="100" cy="10" rx="10" ry="8" fill="#6db33f"/>
+  </g>
+</svg>
   </div>
  <header>
     <div class="nav-container">
@@ -1257,6 +1293,10 @@
           <rect x="3" y="3" width="18" height="18" rx="4" fill="#eafbe6" stroke="#6db33f"/>
           <path d="M7 7h10v10H7z" fill="#6db33f" stroke="#1a2a3a"/>
         </svg>
+        <svg class="animated-leaf" viewBox="0 0 32 32" width="32" height="32" fill="none">
+  <path d="M16 30 Q28 18 16 2 Q4 18 16 30Z" fill="#6db33f" stroke="#3a2c1a" stroke-width="2"/>
+  <path d="M16 30 Q18 20 16 10 Q14 20 16 30Z" fill="none" stroke="#3a2c1a" stroke-width="1.5"/>
+</svg>
         <h3>Website Design</h3>
         <p>Beautiful, responsive websites that reflect your brand and values—like leaves unique to every tree.</p>
       </div>
