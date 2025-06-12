@@ -1135,6 +1135,139 @@
   50% { transform: rotate(6deg) scale(1.05); }
   100% { transform: rotate(-6deg) scale(1); }
 }
+.sunlight-rays {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.97;
+  animation: sunlight-fade 8s ease-in-out infinite alternate;
+  overflow: hidden;
+}
+.sunlight-svg-overlay {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+@keyframes sunlight-fade {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+.sun-group .sun-rays g {
+  animation: rays-rotate-sun 12s linear infinite;
+  transform-origin: 320px 0px;
+}
+@keyframes rays-rotate-sun {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(30deg);}
+}
+/* Shimmer sweep animation */
+.sun-shimmer-full {
+  animation: shimmer-move-full 4.5s linear infinite;
+  filter: blur(2.5px);
+}
+@keyframes shimmer-move-full {
+  0% { transform: translateX(-400px) scaleY(1) scaleX(1.1) rotate(-2deg); opacity: 0.0;}
+  10% { opacity: 0.18;}
+  50% { transform: translateX(1200px) scaleY(1.1) scaleX(1.2) rotate(2deg); opacity: 0.22;}
+  90% { opacity: 0.18;}
+  100% { transform: translateX(-400px) scaleY(1) scaleX(1.1) rotate(-2deg); opacity: 0.0;}
+}
+
+
+
+    .weather-toggle-container {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  z-index: 10;
+}
+#weatherToggleBtn {
+  background: #eafbe6;
+  color: #1a2a3a;
+  border: 2px solid #6db33f;
+  border-radius: 18px;
+  padding: 8px 18px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #6db33f11;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+#weatherToggleBtn:hover {
+  background: #eaf6fb;
+  border-color: #1a2a3a;
+}
+.sunlight-rays {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.97;
+  animation: sunlight-fade 8s ease-in-out infinite alternate;
+  overflow: hidden;
+}
+.sunlight-svg-overlay {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+@keyframes sunlight-fade {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+.sunlight-rays .rays rect {
+  animation: rays-rotate-full 12s linear infinite;
+  transform-origin: 50% 0%;
+}
+@keyframes rays-rotate-full {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(8deg);}
+}
+/* Shimmer sweep animation */
+.sun-shimmer-full {
+  animation: shimmer-move-full 4.5s linear infinite;
+  filter: blur(2.5px);
+}
+@keyframes shimmer-move-full {
+  0% { transform: translateX(-400px) scaleY(1) scaleX(1.1) rotate(-2deg); opacity: 0.0;}
+  10% { opacity: 0.18;}
+  50% { transform: translateX(1200px) scaleY(1.1) scaleX(1.2) rotate(2deg); opacity: 0.22;}
+  90% { opacity: 0.18;}
+  100% { transform: translateX(-400px) scaleY(1) scaleX(1.1) rotate(-2deg); opacity: 0.0;}
+}
+/* Rain Effect animation */
+.rain-effect {
+  pointer-events: none;
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  z-index: 2;
+  overflow: hidden;
+}
+.rain-drop {
+  position: absolute;
+  width: 3px;
+  height: 38px;
+  background: linear-gradient(to bottom, #4fc3f7 80%, #2196f3 100%);
+  opacity: 0.7;
+  border-radius: 2px;
+  animation: rain-fall 1.7s linear infinite;
+  will-change: transform, opacity;
+}
+@keyframes rain-fall {
+  0% { transform: translateY(-40px);}
+  100% { transform: translateY(110vh);}
+}
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
@@ -1181,7 +1314,7 @@
  <header>
     <div class="nav-container">
       <div class="logo">
-        <img src="images/HayTree_Web_Services_LLC_Green.png" alt="HayTree Web Services, LLC Logo">
+        <a href="/"> <img src="images/HayTree_Web_Services_LLC_Green.png" alt="HayTree Web Services, LLC Logo"></a>
         <span class="logo-title-vine">
           HayTree Web Services, LLC
           <span class="logo-vine-svg">
@@ -1209,6 +1342,75 @@
     </div>
   </header>
   <section class="hero">
+    <div class="weather-toggle-container">
+  <button id="weatherToggleBtn" aria-label="Toggle sunlight/rain">
+    <span id="weatherIcon" aria-hidden="true">☀️</span>
+    <span id="weatherLabel" style="margin-left:8px;">Sunlight</span>
+  </button>
+</div>
+<div class="sunlight-rays weather-effect">
+  <svg class="sunlight-svg-overlay" width="100%" height="100%" viewBox="0 0 1440 600" preserveAspectRatio="none">
+    <defs>
+      <!-- Full hero sunlight aura -->
+      <radialGradient id="sunAuraFull" cx="35%" cy="0%" r="90%">
+        <stop offset="0%" stop-color="#fffde4" stop-opacity="0.9"/>
+        <stop offset="40%" stop-color="#ffe066" stop-opacity="0.45"/>
+        <stop offset="80%" stop-color="#ffe066" stop-opacity="0.12"/>
+        <stop offset="100%" stop-color="#fffde4" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Sun core glow -->
+      <radialGradient id="sunCoreGlow" cx="50%" cy="50%" r="70%">
+        <stop offset="0%" stop-color="#fffde4" stop-opacity="1"/>
+        <stop offset="60%" stop-color="#ffe066" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#ffe066" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Shimmer gradient -->
+      <linearGradient id="shimmerGradFull" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+        <stop offset="40%" stop-color="#fff" stop-opacity="0.13"/>
+        <stop offset="60%" stop-color="#fff" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <!-- Full hero sunlight aura -->
+    <rect x="0" y="0" width="1440" height="600" fill="url(#sunAuraFull)" />
+    <!-- Sun (top left, can adjust cx/cy for position) -->
+    <g class="sun-group">
+      <!-- Sun core glow -->
+      <circle cx="320" cy="0" r="160" fill="url(#sunCoreGlow)" opacity="0.85"/>
+      <!-- Sun core -->
+      <circle cx="320" cy="0" r="70" fill="#ffe066" opacity="0.98" filter="url(#sunBlur)"/>
+      <!-- Animated rays -->
+      <g class="sun-rays">
+        <g>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.55" transform="rotate(0 320 0)"/>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.35" transform="rotate(30 320 0)"/>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.35" transform="rotate(60 320 0)"/>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.22" transform="rotate(90 320 0)"/>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.22" transform="rotate(120 320 0)"/>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.15" transform="rotate(150 320 0)"/>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.15" transform="rotate(180 320 0)"/>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.13" transform="rotate(210 320 0)"/>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.11" transform="rotate(240 320 0)"/>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.13" transform="rotate(270 320 0)"/>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.09" transform="rotate(300 320 0)"/>
+          <rect x="315" y="-180" width="10" height="80" fill="#ffe066" opacity="0.09" transform="rotate(330 320 0)"/>
+        </g>
+      </g>
+      <!-- Lens flare -->
+      <ellipse cx="420" cy="60" rx="18" ry="7" fill="#fffde4" opacity="0.18"/>
+      <ellipse cx="500" cy="120" rx="12" ry="5" fill="#fffde4" opacity="0.13"/>
+    </g>
+    <!-- Shimmer sweep -->
+    <rect class="sun-shimmer-full" x="0" y="0" width="300" height="600" fill="url(#shimmerGradFull)" opacity="0.18"/>
+  </svg>
+</div>
+
+
+
+<div class="rain-effect weather-effect" style="display:none;"></div>
+
+
     <div class="vine-animated vine-hero">
       <svg viewBox="0 0 900 300" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path class="vine-path-hero" d="M30,250 Q300,40 450,180 Q600,320 870,60" stroke="#6db33f" stroke-width="10" stroke-linecap="round" fill="none"/>
@@ -1286,7 +1488,7 @@
   <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 Q720,-30 1440,30 L1440,60 L0,60Z" fill="#eaf6fb"/></svg>
 
   <section id="services" class="services-section">
-    <div class="services-title">Our Branches</div>
+    <div class="services-title">Some Of Our Branches</div>
     <div class="services">
       <div class="service-card">
         <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1353,9 +1555,9 @@
     <div class="testimonials-title">Voices in the Canopy</div><!-- Featured Clients Row -->
     <div class="featured-clients">
       <span>Trusted by:</span>
-      <img src="images/fdhill.png" alt="FD on the Hill">
-      <img src="images/sebpo.png" alt="SEBPO">
-      <img src="images/215logo.png" alt="215 Marketing">
+      <a href="https://www.fdhill.org" target="_blank"><img src="images/fdhill.png" alt="FD on the Hill"></a>
+      <a href="https://sebpo.com/" target="_blank"><img src="images/sebpo.png" alt="SEBPO"></a>
+      <a href="https://215marketing.com/" target="_blank"><img src="images/215logo.png" alt="215 Marketing"></a>
       <!-- Add or replace with your own client logos -->
     </div>
     <div class="testimonials">
@@ -1435,7 +1637,6 @@
   </svg>
 </div>
   </section>
-
   <div class="vine-animated vine-bottom">
     <svg viewBox="0 0 600 80" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path class="vine-path" d="M10,10 Q150,70 300,20 Q450,-30 590,60" stroke="#6db33f" stroke-width="4" stroke-linecap="round" fill="none"/>
@@ -1675,6 +1876,50 @@ document.querySelectorAll('nav a').forEach(link => {
     // Optionally, scroll to the message
     document.getElementById('thankYouMessage').scrollIntoView({behavior: 'smooth'});
   }
+// Weather toggle logic
+(function() {
+  const sunlight = document.querySelector('.sunlight-rays');
+  const rain = document.querySelector('.rain-effect');
+  const btn = document.getElementById('weatherToggleBtn');
+  const icon = document.getElementById('weatherIcon');
+  const label = document.getElementById('weatherLabel');
+  let isSunlight = true;
+
+  // Rain drop generator
+  function makeRain() {
+    if (!rain) return;
+    rain.innerHTML = '';
+    for (let i = 0; i < 48; i++) {
+  const drop = document.createElement('div');
+  drop.className = 'rain-drop';
+  drop.style.left = Math.random() * 100 + 'vw';
+  drop.style.animationDelay = (Math.random() * 1.2) + 's';
+  drop.style.animationDuration = (1.2 + Math.random() * 0.8) + 's';
+  drop.style.opacity = 0.5 + Math.random() * 0.3;
+  rain.appendChild(drop);
+}
+
+  }
+
+  makeRain();
+
+  btn.addEventListener('click', function() {
+    isSunlight = !isSunlight;
+    if (isSunlight) {
+      sunlight.style.display = '';
+      rain.style.display = 'none';
+      icon.textContent = '☀️';
+      label.textContent = 'Sunlight';
+    } else {
+      sunlight.style.display = 'none';
+      rain.style.display = '';
+      icon.textContent = '🌧️';
+      label.textContent = 'Rain';
+      makeRain();
+    }
+  });
+})();
+
   </script>
 </body>
 </html>

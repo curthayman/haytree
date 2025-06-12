@@ -500,6 +500,95 @@
   box-shadow: 0 4px 16px #6db33f33;
   stroke: #1a2a3a;
 }
+ /* Floating animation for the whole frame */
+.leafy-frame {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 36px auto 24px auto;
+  /* Remove display: flex, align-items, justify-content */
+  animation: leafy-float 6s ease-in-out infinite alternate;
+}
+
+.leafy-frame-svg {
+  position: absolute;
+  left: 0; top: 0;
+  width: 220px;
+  height: 220px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.leafy-frame-photo {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 18px #6db33f22;
+  background: #fff;
+  z-index: 2;
+  /* Remove display: flex, align-items, justify-content */
+}
+
+.leafy-frame-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+@keyframes leafy-float {
+  0% { transform: translateY(0);}
+  50% { transform: translateY(-8px);}
+  100% { transform: translateY(0);}
+}
+
+/* Swaying animation for the SVG leaves */
+.leafy-frame-svg ellipse:nth-of-type(2) {
+  /* Top left big leaf */
+  transform-origin: 45px 45px;
+  animation: leaf-sway1 5s ease-in-out infinite alternate;
+}
+.leafy-frame-svg ellipse:nth-of-type(3) {
+  /* Top left small leaf */
+  transform-origin: 35px 70px;
+  animation: leaf-sway2 4.5s ease-in-out infinite alternate;
+}
+.leafy-frame-svg ellipse:nth-of-type(4) {
+  /* Bottom right big leaf */
+  transform-origin: 175px 175px;
+  animation: leaf-sway3 5.5s ease-in-out infinite alternate;
+}
+.leafy-frame-svg ellipse:nth-of-type(5) {
+  /* Bottom right small leaf */
+  transform-origin: 185px 150px;
+  animation: leaf-sway4 4.2s ease-in-out infinite alternate;
+}
+
+@keyframes leaf-sway1 {
+  0% { transform: rotate(-18deg);}
+  50% { transform: rotate(-10deg);}
+  100% { transform: rotate(-18deg);}
+}
+@keyframes leaf-sway2 {
+  0% { transform: rotate(12deg);}
+  50% { transform: rotate(18deg);}
+  100% { transform: rotate(12deg);}
+}
+@keyframes leaf-sway3 {
+  0% { transform: rotate(18deg);}
+  50% { transform: rotate(26deg);}
+  100% { transform: rotate(18deg);}
+}
+@keyframes leaf-sway4 {
+  0% { transform: rotate(-12deg);}
+  50% { transform: rotate(-18deg);}
+  100% { transform: rotate(-12deg);}
+}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
@@ -551,7 +640,7 @@
   <header>
     <div class="nav-container">
       <div class="logo">
-  <img src="images/HayTree_Web_Services_LLC_Green.png" alt="Haytree Web Services, LLC Logo">
+  <a href="/"> <img src="images/HayTree_Web_Services_LLC_Green.png" alt="HayTree Web Services, LLC Logo"></a>
   <span class="logo-title-vine">
     HayTree Web Services, LLC
     <span class="logo-vine-svg">
@@ -603,6 +692,22 @@
       <p>
         With a Brady Bunch of nine kids between us, we’re a true modern family with deep roots and wide branches—just like a strong family tree. HayTree represents who we are: grounded, growing, and here to help others build their corner of the web with care.
       </p>
+      <div class="leafy-frame">
+  <svg class="leafy-frame-svg" viewBox="0 0 220 220" width="220" height="220">
+    <!-- Main leafy circle -->
+    <ellipse cx="110" cy="110" rx="100" ry="100" fill="#eafbe6" stroke="#6db33f" stroke-width="6"/>
+    <!-- Decorative leaves (top left) -->
+    <ellipse cx="45" cy="45" rx="22" ry="10" fill="#6db33f" transform="rotate(-18 45 45)"/>
+    <ellipse cx="35" cy="70" rx="14" ry="6" fill="#6db33f" transform="rotate(12 35 70)"/>
+    <!-- Decorative leaves (bottom right) -->
+    <ellipse cx="175" cy="175" rx="22" ry="10" fill="#6db33f" transform="rotate(18 175 175)"/>
+    <ellipse cx="185" cy="150" rx="14" ry="6" fill="#6db33f" transform="rotate(-12 185 150)"/>
+  </svg>
+  <div class="leafy-frame-photo">
+    <img src="images/IMG_3949.jpeg" alt="Curt & Angie Hayman" />
+  </div>
+</div>
+
       <p><div class="signature">Curt & Angie Hayman</div></p>
     </div>
   </main>
