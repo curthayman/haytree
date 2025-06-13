@@ -589,6 +589,27 @@
   50% { transform: rotate(-18deg);}
   100% { transform: rotate(-12deg);}
 }
+    .signature a {
+  color: #3a2c1a;
+  text-decoration: none;
+  font-family: 'Pacifico', cursive;
+  font-size: 1em;
+  background: linear-gradient(90deg, #fffbe6 60%, #f8f9fb 100%);
+  padding: 0.05em 0.2em;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px #0001;
+}
+
+.signature a:hover,
+.signature a:focus {
+  color: #6db33f;
+  background: #fffbe6;
+  text-decoration: underline wavy #6db33f 2px;
+  box-shadow: 0 2px 8px #6db33f22;
+  outline: none;
+}
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
@@ -708,7 +729,11 @@
   </div>
 </div>
 
-      <p><div class="signature">Curt & Angie Hayman</div></p>
+      <div class="signature">
+  <a href="https://iamcurthayman.com" target="_blank">Curt</a> &amp;
+  <a href="https://www.instagram.com/iamangiehayman" target="_blank">Angie Hayman</a>
+</div>
+
     </div>
   </main>
   <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none">
