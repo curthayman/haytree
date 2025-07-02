@@ -187,3 +187,58 @@ document.querySelectorAll('nav a').forEach(link => {
     }
   });
 })();
+// Hamburger menu logic
+(function() {
+  const navToggle = document.getElementById('navToggle');
+  const nav = document.getElementById('main-nav');
+  if (!navToggle || !nav) return;
+  navToggle.addEventListener('click', function() {
+    const isOpen = nav.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    document.body.classList.toggle('menu-open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', function() {
+      if (window.innerWidth <= 700) {
+        nav.classList.remove('open');
+        navToggle.classList.remove('open');
+        document.body.classList.remove('menu-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && nav.classList.contains('open')) {
+      nav.classList.remove('open');
+      navToggle.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+// Password Strength Checker
+const pwInput = document.getElementById('pw');
+const pwStrength = document.getElementById('pw-strength');
+const pwBar = document.getElementById('pw-strength-bar');
+if (pwInput && pwStrength && pwBar) {
+  pwInput.addEventListener('input', function() {
+    const val = this.value;
+    let strength = 'Weak';
+    let percent = 33;
+    let labelClass = '';
+    if (val.length > 8 && /[A-Z]/.test(val) && /\d/.test(val) && /[^A-Za-z0-9]/.test(val)) {
+      strength = 'Strong';
+      percent = 100;
+      labelClass = 'strong';
+    } else if (val.length > 5 && (/[A-Z]/.test(val) || /\d/.test(val))) {
+      strength = 'Medium';
+      percent = 66;
+      labelClass = 'medium';
+    }
+    pwStrength.textContent = 'Strength: ' + strength;
+    pwStrength.className = 'pw-strength-label ' + labelClass;
+    pwBar.style.width = percent + '%';
+  });
+}
+

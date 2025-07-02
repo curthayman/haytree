@@ -20,7 +20,8 @@
 <meta property="twitter:title" content="HayTree Web Services, LLC | Website Security, Website Design, Website Maintenance, Content Updates & Pen Testing">
 <meta property="twitter:description" content="Website Security, Website Design, Website Maintenance, Content Updates & Pen Testing">
 <meta property="twitter:image" content="https://haytreewebservices.com/images/HayTree_Web_Services_LLC_Green.png">
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self';">
 </head>
 <body>
   <div class="side-vine-container">
@@ -63,35 +64,35 @@
 </svg>
   </div>
  <header>
-    <div class="nav-container">
-      <div class="logo">
-        <a href="/"> <img src="images/HayTree_Web_Services_LLC_Green.png" alt="HayTree Web Services, LLC Logo"></a>
-        <span class="logo-title-vine">
-          HayTree Web Services, LLC
-          <span class="logo-vine-svg">
-            <svg viewBox="0 0 180 40" width="120" height="28" fill="none">
-              <path class="logo-vine-path" d="M10,5 Q30,30 90,10 Q120,0 170,30" stroke="#6db33f" stroke-width="3" fill="none" stroke-linecap="round"/>
-              <ellipse class="logo-vine-leaf l1" cx="28" cy="22" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 28 22)"/>
-              <ellipse class="logo-vine-leaf l2" cx="60" cy="13" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 60 13)"/>
-              <ellipse class="logo-vine-leaf l3" cx="110" cy="7" rx="7" ry="3" fill="#6db33f" transform="rotate(-10 110 7)"/>
-              <ellipse class="logo-vine-leaf l4" cx="150" cy="25" rx="6" ry="2.5" fill="#6db33f" transform="rotate(18 150 25)"/>
-            </svg>
-          </span>
+  <div class="nav-container">
+    <div class="logo">
+      <a href="/"> <img src="images/HayTree_Web_Services_LLC_Green.png" alt="HayTree Web Services, LLC Logo"></a>
+      <span class="logo-title-vine">
+        HayTree Web Services, LLC
+        <span class="logo-vine-svg">
+          <svg viewBox="0 0 180 40" width="120" height="28" fill="none">
+            <path class="logo-vine-path" d="M10,5 Q30,30 90,10 Q120,0 170,30" stroke="#6db33f" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <ellipse class="logo-vine-leaf l1" cx="28" cy="22" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 28 22)"/>
+            <ellipse class="logo-vine-leaf l2" cx="60" cy="13" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 60 13)"/>
+            <ellipse class="logo-vine-leaf l3" cx="110" cy="7" rx="7" ry="3" fill="#6db33f" transform="rotate(-10 110 7)"/>
+            <ellipse class="logo-vine-leaf l4" cx="150" cy="25" rx="6" ry="2.5" fill="#6db33f" transform="rotate(18 150 25)"/>
+          </svg>
         </span>
-      </div>
-      <button class="nav-toggle" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav>
-        <a href="our-roots.html">Our Roots</a>
-        <a href="branches.html">Branches</a>
-        <a href="process.html">How We Grow</a>
-        <a href="contact.html">Contact</a>
-      </nav>
+      </span>
     </div>
-  </header>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="main-nav" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav id="main-nav">
+      <a href="our-roots.html">Our Roots</a>
+      <a href="branches.html">Branches</a>
+      <a href="process.html">How We Grow</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
   <section class="hero">
     <div class="weather-toggle-container">
   <button id="weatherToggleBtn" aria-label="Toggle sunlight/rain">
@@ -230,6 +231,14 @@
 
   <section id="about" class="about">
     <div class="about-title">Our Roots</div>
+    <div class="section-vine-underline" aria-hidden="true">
+  <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
+    <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
+    <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
+  </svg>
+</div>
+
     <div class="about-desc">
       At HayTree, we believe every business is like a tree: it needs strong roots, a healthy environment, and the right support to flourish. <br>
       Our roots are in integrity, innovation, and a passion for helping others thrive in the digital world.
@@ -240,6 +249,14 @@
 
   <section id="services" class="services-section">
     <div class="services-title">Some Of Our Branches</div>
+    <div class="section-vine-underline" aria-hidden="true">
+  <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
+    <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
+    <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
+  </svg>
+</div>
+
     <div class="services">
       <div class="service-card">
         <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -275,6 +292,13 @@
 
   <section id="process" class="process-section">
     <div class="process-title">How We Grow</div>
+    <div class="section-vine-underline" aria-hidden="true">
+  <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
+    <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
+    <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
+  </svg>
+</div>
     <div class="process-steps">
       <div class="process-step">
         <svg class="process-step-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -303,7 +327,15 @@
   <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 Q720,-30 1440,30 L1440,60 L0,60Z" fill="#eaf6fb"/></svg>
 
   <section id="testimonials" class="testimonials-section">
-    <div class="testimonials-title">Voices in the Canopy</div><!-- Featured Clients Row -->
+    <div class="testimonials-title">Voices in the Canopy</div>
+    <div class="section-vine-underline" aria-hidden="true">
+  <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
+    <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
+    <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
+  </svg>
+</div>
+
     <div class="featured-clients">
       <span>Trusted by:</span>
       <a href="https://www.fdhill.org" target="_blank"><img src="images/fdhill.png" alt="FD on the Hill"></a>
@@ -327,10 +359,48 @@
     </div>
   </section>
 
+  <section class="security-demo-section">
+  <!-- Decorative Leaf SVG -->
+  <svg class="pw-leaf-bg" width="80" height="80" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+    <path d="M40 75 Q70 40 40 10 Q10 40 40 75Z" fill="#6db33f" fill-opacity="0.13"/>
+    <path d="M40 75 Q45 50 40 25 Q35 50 40 75Z" fill="none" stroke="#3a2c1a" stroke-width="2" opacity="0.18"/>
+  </svg>
+  <h2 class="security-demo-title">Try Our Password Strength Checker</h2>
+  <p class="security-demo-subtitle">🌱 See how strong your password is—no data leaves your browser!</p>
+  <div class="security-demo">
+    <label for="pw">Test Password Strength:</label>
+    <div class="pw-input-wrapper">
+      <input type="password" id="pw" aria-describedby="pw-strength" autocomplete="off" placeholder="Enter a password..." />
+      <span class="pw-leaf-icon" aria-hidden="true">
+        <!-- SVG leaf icon -->
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <path d="M16 30 Q28 18 16 2 Q4 18 16 30Z" fill="#6db33f" stroke="#3a2c1a" stroke-width="2"/>
+          <path d="M16 30 Q18 20 16 10 Q14 20 16 30Z" fill="none" stroke="#3a2c1a" stroke-width="1.5"/>
+        </svg>
+      </span>
+    </div>
+    <div class="pw-strength-bar-bg">
+      <div id="pw-strength-bar" class="pw-strength-bar"></div>
+    </div>
+    <div id="pw-strength" class="pw-strength-label"></div>
+    <div class="pw-privacy-note">
+      <svg width="18" height="18" viewBox="0 0 20 20" style="vertical-align:middle; margin-right:4px;"><circle cx="10" cy="10" r="9" fill="#eafbe6" stroke="#6db33f" stroke-width="2"/><path d="M10 6v4" stroke="#1a2a3a" stroke-width="2" stroke-linecap="round"/><circle cx="10" cy="13.5" r="1" fill="#1a2a3a"/></svg>
+      <span>We don’t store your password—this check is for your eyes only.</span>
+    </div>
+  </div>
+</section>
+
   <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 Q720,90 1440,30 L1440,60 L0,60Z" fill="#eafbe6"/></svg>
 
   <section id="contact" class="contact-section">
     <div class="contact-title">Let’s Grow Together</div>
+    <div class="section-vine-underline" aria-hidden="true">
+  <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
+    <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
+    <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
+  </svg>
+</div>
     <!-- Floating leaves in the contact section -->
 <div class="contact-leaves">
   <svg class="contact-leaf contact-leaf-1" viewBox="0 0 120 60" width="120" height="60">
