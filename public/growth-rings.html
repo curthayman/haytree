@@ -752,9 +752,50 @@
     @keyframes vineGrowUnderline {
   to { stroke-dashoffset: 0; }
 }
+    .sla-modal {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(26,42,58,0.32);
+  justify-content: center;
+  align-items: center;
+}
+.sla-modal-content {
+  background: none;
+  border: none;
+  box-shadow: none;
+  position: relative;
+  max-width: 90vw;
+  margin: 0 auto;
+}
+.sla-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 32px;
+  font-size: 2.2rem;
+  color: #6db33f;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.2s;
+}
+.sla-modal-close:hover {
+  color: #1a2a3a;
+}
+@media (max-width: 800px) {
+  .sla-section {
+    padding: 18px 6vw;
+  }
+  .sla-modal-content {
+    max-width: 98vw;
+  }
+}
+
 
   </style>
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com;">
  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GGGS5JHHGB"></script>
 <script>
@@ -846,7 +887,10 @@
       <img src="images/HayTree_Web_Services_LLC_Green.png" alt="Haytree Web Services, LLC Logo">
     </div>
     <div class="hero-title">Growth Rings</div>
-    <div class="section-vine-underline" aria-hidden="true">
+<div style="text-align:center; color:#000; font-weight:500; font-size:1.18rem; margin-bottom:10px;">
+  Website Maintenance Plans for Lasting Digital Health
+</div>
+<div class="section-vine-underline" aria-hidden="true">
   <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
     <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
     <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
@@ -855,17 +899,7 @@
 </div>
   </section>
   <main>
-
-
   <section class="packages-section">
-  <div class="packages-title">Website Maintenance Plans</div>
-  <div class="section-vine-underline" aria-hidden="true">
-    <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
-      <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
-      <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
-    </svg>
-  </div>
   <div class="packages-cards">
     <!-- Package 1: Seedling Care -->
     <div class="package-card">
@@ -975,7 +1009,8 @@
         <li>Unlimited content updates</li>
         <li>WooCommerce or membership site support</li>
         <li>Advanced security &amp; firewall management</li>
-        <li>Custom uptime &amp; performance SLAs</li>
+        <li>Custom uptime &amp; <a href="#" class="open-sla-modal" style="color:#6db33f; text-decoration:underline; cursor:pointer;">Performance SLAs</a>
+</li>
         <li>Quarterly strategy call</li>
         <li>Annual security audit &amp; pen test</li>
         <li>Dedicated account manager</li>
@@ -1009,7 +1044,7 @@
         </svg>
       </a>
     </div>
-    &copy; 2025 Haytree Web Services, LLC &mdash; <a href="mailto:info@haytreewebservices.com">info@haytreewebservices.com</a>
+    &copy; 2025 HayTree Web Services, LLC &mdash; <a href="mailto:info@haytreewebservices.com">info@haytreewebservices.com</a>
   </footer>
   <button id="backToTopBtn" aria-label="Back to top">
     <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
@@ -1196,6 +1231,52 @@
         if (e.key === 'Escape') closeMenu();
       });
     });
+  // Open modal
+  document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('slaModal');
+    var closeBtn = document.getElementById('slaModalClose');
+    var openLinks = document.querySelectorAll('.open-sla-modal');
+
+    openLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.style.display = 'flex';
+      });
+    });
+
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    };
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") modal.style.display = 'none';
+    });
+  });
   </script>
+<!-- SLA Modal -->
+<div id="slaModal" class="sla-modal">
+  <div class="sla-modal-content">
+    <span class="sla-modal-close" id="slaModalClose">&times;</span>
+    <div class="sla-section" style="max-width:700px; margin:0 auto; background:#eafbe6; border-radius:16px; padding:32px 24px; color:#1a2a3a;">
+      <h3 style="color:#6db33f;">Service Level Agreement (SLA) Highlights</h3>
+      <ul style="line-height:1.7;">
+        <li><strong>99.9% Uptime Guarantee</strong> (excluding scheduled maintenance)</li>
+        <li><strong>Performance Monitoring:</strong> Proactive speed checks and optimization</li>
+        <li><strong>Support Response:</strong> Critical issues within 2 business hours, standard requests within 1 business day</li>
+        <li><strong>Content Updates:</strong> Completed within 2 business days</li>
+        <li><strong>Daily Off-site Backups:</strong> Retained for 30 days, restore within 1 business day</li>
+        <li><strong>Real-time Security Monitoring &amp; Remediation</strong></li>
+      </ul>
+      <div style="font-size:0.98em; color:#3a3a3a; margin-top:12px;">
+        <em>SLAs do not apply during scheduled maintenance or for issues outside our control. See your plan agreement for full details.</em>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

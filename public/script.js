@@ -109,33 +109,7 @@
   // Initialize on load
   toggleBtn();
 })();
- // Hamburger menu logic (simple, robust, clear)
- const navToggle = document.querySelector('.nav-toggle');
-const nav = document.querySelector('nav');
 
-function closeMenu() {
-  nav.classList.remove('open');
-  navToggle.classList.remove('open');
-  document.body.classList.remove('menu-open');
-}
-
-navToggle.addEventListener('click', function() {
-  const isOpen = nav.classList.toggle('open');
-  navToggle.classList.toggle('open');
-  document.body.classList.toggle('menu-open', isOpen);
-});
-
-// Only intercept anchor links for smooth scroll, otherwise let browser handle navigation
-document.querySelectorAll('nav a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    const href = this.getAttribute('href');
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
-    }
-    closeMenu();
-  });
-});
   // Show thank you message if redirected with ?thanks=1
   if (window.location.search.includes('thanks=1')) {
     document.getElementById('thankYouMessage').style.display = 'block';
