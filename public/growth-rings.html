@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Roots – HayTree Web Services, LLC</title>
+  <title>Growth Rings – HayTree Web Services, LLC</title>
   <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
@@ -247,7 +247,7 @@
       z-index: 2;
       position: relative;
     }
-    /* --- NEW: Hero Logo Glow --- */
+      /* --- NEW: Hero Logo Glow --- */
 .hero-logo {
   width: 220px;
   height: 220px;
@@ -615,6 +615,143 @@
 @keyframes vineGrowUnderline {
   to { stroke-dashoffset: 0; }
 }
+.packages-section {
+  max-width: 1100px;
+  margin: 0 auto 60px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.packages-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--green);
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 0;
+}
+.packages-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 32px;
+  width: 100%;
+}
+.package-card {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 36px 28px 32px 28px;
+  min-width: 280px;
+  max-width: 340px;
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.18s, box-shadow 0.18s;
+  border: 2px solid #eafbe6;
+}
+.package-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 32px #6db33f22;
+  border-color: var(--green);
+}
+.package-icon {
+  margin-bottom: 18px;
+}
+.package-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+.package-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.package-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px 0;
+  color: var(--navy);
+  font-size: 1rem;
+  text-align: left;
+  width: 100%;
+}
+.package-features li {
+  margin-bottom: 8px;
+  padding-left: 2.2em; /* was 1.2em */
+  position: relative;
+}
+.package-features li:before {
+  content: "🌱";
+  position: absolute;
+  left: 0;
+  top: 0.05em; /* slight vertical nudge, optional */
+  font-size: 1em;
+  color: var(--green);
+}
+
+.package-cta {
+  background: linear-gradient(90deg, var(--green) 60%, var(--navy) 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px #6db33f11;
+}
+.package-cta:hover {
+  background: linear-gradient(90deg, var(--navy) 60%, var(--green) 100%);
+  transform: scale(1.06);
+}
+@media (max-width: 900px) {
+  .packages-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .package-card {
+    max-width: 95vw;
+    min-width: 0;
+    width: 100%;
+  }
+}
+.section-vine-underline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 24px auto;
+  width: 100%;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.92;
+  z-index: 1;
+}
+.section-vine-underline svg {
+  display: block;
+  max-width: 160px;
+  width: 100%;
+  height: 18px;
+}
+.section-vine-underline path {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: vineGrowUnderline 1.2s cubic-bezier(.77,0,.18,1) forwards;
+}
+    @keyframes vineGrowUnderline {
+  to { stroke-dashoffset: 0; }
+}
 
   </style>
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
@@ -696,10 +833,10 @@
       </button>
       <nav id="main-nav">
         <a href="index.html">Home</a>
-        <a href="our-roots.html" style="color:var(--green);font-weight:700;">Our Roots</a>
+        <a href="our-roots.html"">Our Roots</a>
         <a href="branches.html">Branches</a>
         <a href="process.html">How We Grow</a>
-        <a href="growth-rings.html">Growth Rings</a>
+        <a href="growth-rings.html" style="color:var(--green);font-weight:700;">Growth Rings</a>
         <a href="contact.html">Contact</a>
       </nav>
     </div>
@@ -708,7 +845,7 @@
     <div class="hero-logo">
       <img src="images/HayTree_Web_Services_LLC_Green.png" alt="Haytree Web Services, LLC Logo">
     </div>
-    <div class="hero-title">Our Roots</div>
+    <div class="hero-title">Growth Rings</div>
     <div class="section-vine-underline" aria-hidden="true">
   <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
     <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
@@ -716,46 +853,143 @@
     <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
   </svg>
 </div>
-
   </section>
   <main>
-    <div class="roots-content">
-      <div class="roots-vine-plant">
-        <svg viewBox="0 0 54 160" width="54" height="160" fill="none">
-          <path class="roots-vine-path" d="M27,0 Q40,40 18,60 Q36,90 30,120 Q40,140 27,160" stroke="#6db33f" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <ellipse class="roots-vine-leaf l1" cx="32" cy="28" rx="8" ry="3.5" fill="#6db33f" transform="rotate(-18 32 28)"/>
-          <ellipse class="roots-vine-leaf l2" cx="20" cy="60" rx="7" ry="3" fill="#6db33f" transform="rotate(12 20 60)"/>
-          <ellipse class="roots-vine-leaf l3" cx="34" cy="100" rx="8" ry="3.5" fill="#6db33f" transform="rotate(-10 34 100)"/>
-          <ellipse class="roots-vine-leaf l4" cx="28" cy="130" rx="7" ry="3" fill="#6db33f" transform="rotate(18 28 130)"/>
-          <ellipse class="roots-vine-leaf l5" cx="38" cy="145" rx="6" ry="2.5" fill="#6db33f" transform="rotate(-8 38 145)"/>
-          <ellipse class="roots-vine-leaf l6" cx="22" cy="150" rx="7" ry="3" fill="#6db33f" transform="rotate(10 22 150)"/>
+
+
+  <section class="packages-section">
+  <div class="packages-title">Website Maintenance Plans</div>
+  <div class="section-vine-underline" aria-hidden="true">
+    <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
+      <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
+      <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
+    </svg>
+  </div>
+  <div class="packages-cards">
+    <!-- Package 1: Seedling Care -->
+    <div class="package-card">
+      <div class="package-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <ellipse cx="22" cy="22" rx="20" ry="20" fill="#eafbe6"/>
+          <ellipse cx="22" cy="18" rx="10" ry="4" fill="#6db33f"/>
+          <ellipse cx="22" cy="30" rx="8" ry="3" fill="#1a2a3a" fill-opacity="0.13"/>
         </svg>
       </div>
-      <h2><span>Why “HayTree”?</span></h2>
-      <p>
-        Our name is a blend of tech, love, and family. When we first started living together, our cozy second-floor apartment was surrounded by trees—almost every window framed a leafy view. We used to joke, “C&amp;A, sitting in a tree,” and that tree became a quiet symbol of growth, connection, and building something meaningful together.
-      </p>
-      <p>
-        With a Brady Bunch of nine kids between us, we’re a true modern family with deep roots and wide branches—just like a strong family tree. HayTree represents who we are: grounded, growing, and here to help others build their corner of the web with care.
-      </p>
-      <div class="leafy-frame">
-        <svg class="leafy-frame-svg" viewBox="0 0 220 220" width="220" height="220">
-          <ellipse cx="110" cy="110" rx="100" ry="100" fill="#eafbe6" stroke="#6db33f" stroke-width="6"/>
-          <ellipse cx="45" cy="45" rx="22" ry="10" fill="#6db33f" transform="rotate(-18 45 45)"/>
-          <ellipse cx="35" cy="70" rx="14" ry="6" fill="#6db33f" transform="rotate(12 35 70)"/>
-          <ellipse cx="175" cy="175" rx="22" ry="10" fill="#6db33f" transform="rotate(18 175 175)"/>
-          <ellipse cx="185" cy="150" rx="14" ry="6" fill="#6db33f" transform="rotate(-12 185 150)"/>
-        </svg>
-        <div class="leafy-frame-photo">
-          <img src="images/IMG_3949.jpeg" alt="Curt & Angie Hayman" />
-        </div>
-      </div>
-      <div class="signature">
-        <a href="https://iamcurthayman.com" target="_blank">Curt</a> &amp;
-        <a href="https://www.iamangiehayman.com" target="_blank">Angie Hayman</a>
-      </div>
+      <div class="package-name">Seedling Care</div>
+       <div class="section-vine-underline" aria-hidden="true">
+    <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
+      <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
+      <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
+    </svg>
+  </div>
+      <div class="package-price">$50/mo</div>
+      <ul class="package-features">
+        <li>Monthly WordPress core, theme &amp; plugin updates</li>
+        <li>Monthly off-site backups</li>
+        <li>Basic security monitoring</li>
+        <li>Email support</li>
+        <li>1 small content update per month</li>
+      </ul>
+      <button class="package-cta" onclick="location.href='contact.html'">Get Started</button>
     </div>
-  </main>
+    <!-- Package 2: Growing Branch Care -->
+    <div class="package-card">
+      <div class="package-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <ellipse cx="22" cy="22" rx="20" ry="20" fill="#eafbe6"/>
+          <ellipse cx="22" cy="14" rx="12" ry="5" fill="#6db33f"/>
+          <ellipse cx="22" cy="30" rx="10" ry="4" fill="#1a2a3a" fill-opacity="0.13"/>
+        </svg>
+      </div>
+      <div class="package-name">Growing Branch Care</div>
+       <div class="section-vine-underline" aria-hidden="true">
+    <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
+      <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
+      <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
+    </svg>
+  </div>
+      <div class="package-price">$80/mo</div>
+      <ul class="package-features">
+        <li>Weekly WordPress core, theme &amp; plugin updates</li>
+        <li>Weekly off-site backups</li>
+        <li>Enhanced security monitoring &amp; malware scans</li>
+        <li>Performance optimization (monthly)</li>
+        <li>Priority email support</li>
+        <li>Up to 3 content updates per month</li>
+      </ul>
+      <button class="package-cta" onclick="location.href='contact.html'">Get Started</button>
+    </div>
+    <!-- Package 3: Canopy Care -->
+    <div class="package-card">
+      <div class="package-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <ellipse cx="22" cy="22" rx="20" ry="20" fill="#eafbe6"/>
+          <ellipse cx="22" cy="10" rx="14" ry="6" fill="#6db33f"/>
+          <ellipse cx="22" cy="30" rx="12" ry="5" fill="#1a2a3a" fill-opacity="0.13"/>
+        </svg>
+      </div>
+      <div class="package-name">Canopy Care</div>
+       <div class="section-vine-underline" aria-hidden="true">
+    <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
+      <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
+      <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
+    </svg>
+  </div>
+      <div class="package-price">$150/mo</div>
+      <ul class="package-features">
+        <li>Daily WordPress core, theme &amp; plugin updates</li>
+        <li>Daily off-site backups</li>
+        <li>Real-time security monitoring &amp; malware removal</li>
+        <li>Uptime monitoring</li>
+        <li>Performance optimization (weekly)</li>
+        <li>Phone &amp; email support</li>
+        <li>Up to 10 content updates per month</li>
+        <li>Monthly maintenance report</li>
+      </ul>
+      <button class="package-cta" onclick="location.href='contact.html'">Get Started</button>
+    </div>
+    <!-- Package 4: The Forest Care -->
+    <div class="package-card">
+      <div class="package-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <ellipse cx="22" cy="22" rx="20" ry="20" fill="#eafbe6"/>
+          <ellipse cx="22" cy="8" rx="16" ry="7" fill="#6db33f"/>
+          <ellipse cx="22" cy="30" rx="14" ry="6" fill="#1a2a3a" fill-opacity="0.13"/>
+        </svg>
+      </div>
+      <div class="package-name">The Forest Care</div>
+       <div class="section-vine-underline" aria-hidden="true">
+    <svg viewBox="0 0 180 18" width="120" height="18" fill="none">
+      <path d="M10 9 Q60 18 90 9 Q120 0 170 9" stroke="#6db33f" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <ellipse cx="60" cy="13" rx="7" ry="3" fill="#6db33f" transform="rotate(-18 60 13)"/>
+      <ellipse cx="120" cy="5" rx="6" ry="2.5" fill="#6db33f" transform="rotate(12 120 5)"/>
+    </svg>
+  </div>
+      <div class="package-price">Custom</div>
+      <ul class="package-features">
+        <li>Everything in Canopy Care</li>
+        <li>Unlimited content updates</li>
+        <li>WooCommerce or membership site support</li>
+        <li>Advanced security &amp; firewall management</li>
+        <li>Custom uptime &amp; performance SLAs</li>
+        <li>Quarterly strategy call</li>
+        <li>Annual security audit &amp; pen test</li>
+        <li>Dedicated account manager</li>
+        <li>White-glove support &amp; consulting</li>
+      </ul>
+      <button class="package-cta" onclick="location.href='contact.html'">Request Quote</button>
+    </div>
+  </div>
+  <div class="packages-note" style="margin-top:32px; text-align:center; color:#1a2a3a; font-size:1.08rem;">
+    <strong>All plans can be customized.</strong> Not sure which is right for you? <a href="contact.html" style="color:#6db33f; font-weight:600; text-decoration:underline;">Contact us</a> for a free consult!
+  </div>
+</section>
+
+</main>
   <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none">
     <path d="M0,30 Q720,90 1440,30 L1440,60 L0,60Z" fill="#1a2a3a"/>
   </svg>

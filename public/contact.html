@@ -215,20 +215,26 @@
       z-index: 2;
       position: relative;
     }
-    .hero-logo {
-      width: 220px;
-      height: 220px;
-      background: var(--white);
-      border-radius: 50%;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-      margin: 0 auto 18px auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 2;
-      overflow: hidden;
-    }
+      /* --- NEW: Hero Logo Glow --- */
+.hero-logo {
+  width: 220px;
+  height: 220px;
+  background: var(--white);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 #6db33f, 0 2px 16px rgba(0,0,0,0.08);
+  margin: 0 auto 24px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  animation: logoGlow 3s ease-in-out infinite alternate;
+}
+@keyframes logoGlow {
+  0% { box-shadow: 0 0 0 0 #6db33f33, 0 2px 16px rgba(0,0,0,0.08);}
+  100% { box-shadow: 0 0 32px 8px #6db33f66, 0 2px 16px rgba(0,0,0,0.08);}
+}
     .hero-logo img {
       max-width: 90%;
       max-height: 90%;
@@ -598,6 +604,7 @@
         <a href="our-roots.html">Our Roots</a>
         <a href="branches.html">Branches</a>
         <a href="process.html">How We Grow</a>
+        <a href="growth-rings.html">Growth Rings</a>
         <a href="contact.html" style="color:var(--green);font-weight:700;">Contact</a>
       </nav>
     </div>
