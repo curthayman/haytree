@@ -1,6 +1,6 @@
-# Haytree Web Services
+# HayTree Web Services
 
-Welcome to the Haytree Web Services site! 🌱  
+Welcome to the HayTree Web Services site! 🌱  
 We help small businesses and individuals grow their online presence with beautiful, secure, and sustainable websites.
 
 ## What We Offer
@@ -20,7 +20,7 @@ We help small businesses and individuals grow their online presence with beautif
 - **Database Audits & Code Conflict Resolution**  
   Performance tuning and troubleshooting to keep your site running smoothly.
 
-## The Haytree Difference
+## The HayTree Difference
 
 We believe your website should grow with you—rooted in strong security, nurtured with care, and always reaching for the sun.  
 Our plant-inspired design and animated touches make your site stand out and feel alive.
