@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const { name, email, message } = req.body;
-
+      
       const contact = {
         id: Math.random().toString(36).substr(2, 9),
         name: name || '',
@@ -21,18 +21,18 @@ export default async function handler(req, res) {
         message: message || '',
         createdAt: new Date()
       };
-
+      
       console.log('New contact submission:', contact);
-
-      res.status(200).json({
-        success: true,
-        message: "Thank you! We'll be in touch soon."
+      
+      res.status(200).json({ 
+        success: true, 
+        message: "Thank you! We'll be in touch soon." 
       });
     } catch (error) {
       console.error('Contact form error:', error);
-      res.status(500).json({
-        success: false,
-        message: "Sorry, something went wrong. Please try again."
+      res.status(500).json({ 
+        success: false, 
+        message: "Sorry, something went wrong. Please try again." 
       });
     }
   } else {
