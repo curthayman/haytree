@@ -1,35 +1,80 @@
 # HayTree Web Services
 
-Welcome to the HayTree Web Services site! 🌱  
-We help small businesses and individuals grow their online presence with beautiful, secure, and sustainable websites.
+A modern, tech-focused website for HayTree Web Services - Delaware's trusted web development partner.
 
-## What We Offer
+## Features
 
-- **Website Design & Development**  
-  Custom, responsive sites that reflect your brand and values.
+### 🎨 Modern Design
+- Responsive single-page application
+- Animated tree graphics with growing effects
+- Tech-themed visual elements and animations
+- Custom #6db33f green branding throughout
 
-- **Hosting & Maintenance**  
-  Secure, reliable hosting and ongoing support to keep your site evergreen.
+### 🚀 Tech Elements
+- Floating code snippets and tech icons
+- Animated terminal widget with typing commands
+- Binary rain effects and circuit patterns
+- Glowing tech orbs and grid patterns
+- Matrix-style background animations
 
-- **WordPress Security & Pen Testing**  
-  Security audits, malware removal, and ethical hacking to protect your digital roots.
+### 📱 User Experience
+- Smooth anchor navigation between sections
+- Mobile-first responsive design
+- Interactive contact form with validation
+- Password strength checker tool
+- Animated scroll progress indicator
 
-- **Content Updates & SEO Optimization**  
-  Fresh content, keyword analysis, and SEO best practices to help you climb the rankings.
+### 🛠 Technical Stack
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Animations**: Framer Motion
+- **Backend**: Express.js (for contact form)
+- **Routing**: Wouter (client-side)
+- **Forms**: React Hook Form + Zod validation
 
-- **Database Audits & Code Conflict Resolution**  
-  Performance tuning and troubleshooting to keep your site running smoothly.
+## Quick Start
 
-## The HayTree Difference
+```bash
+# Install dependencies
+npm install
 
-We believe your website should grow with you—rooted in strong security, nurtured with care, and always reaching for the sun.  
-Our plant-inspired design and animated touches make your site stand out and feel alive.
+# Start development server
+npm run dev
 
-## Connect With Us
+# Build for production
+npm run build
+```
 
-- [Facebook](https://www.facebook.com/haytreeweb/)
-- [Instagram](https://www.instagram.com/haytreewebservicesllc)
+## Deployment
+
+This project is configured for Vercel deployment. See [DEPLOY.md](./DEPLOY.md) for detailed instructions.
+
+## Project Structure
+
+```
+├── client/           # React frontend application
+│   ├── src/
+│   │   ├── components/   # UI components
+│   │   ├── pages/        # Page components
+│   │   ├── lib/          # Utilities and config
+│   │   └── hooks/        # Custom React hooks
+├── server/           # Express backend
+├── shared/           # Shared types and schemas
+└── vercel.json       # Vercel deployment config
+```
+
+## Services Offered
+
+- **Web Design**: Custom, responsive website designs
+- **Development**: Full-stack web application development
+- **Maintenance**: Ongoing website updates and security
+- **Content Updates**: Regular content management
+- **Penetration Testing**: Security assessment and testing
+
+## Contact
+
+Ready to grow your web presence? Get in touch through our contact form on the website.
 
 ---
 
-*Built with care by Curt & Angie Hayman.*
+Built with ❤️ using modern web technologies
